@@ -2,10 +2,10 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
-  controller('MyCtrl1', [function() {
+angular.module('kinghunt.controllers', []).
+  controller('LoadCtrl', [function() {
 
   }])
-  .controller('MyCtrl2', [function() {
-
+  .controller('BoardCtrl', ['$scope', function($scope) {
+    $scope.board = new ChessBoard('board', 'start');
   }]);
