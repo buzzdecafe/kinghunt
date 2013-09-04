@@ -6,6 +6,6 @@ angular.module('kinghunt.controllers', []).
   controller('LoadCtrl', [function() {
 
   }])
-  .controller('BoardCtrl', ['$scope', function($scope) {
-    $scope.board = new ChessBoard('board', 'start');
+  .controller('BoardCtrl', ['$scope', 'ChessBoard',  function($scope, board) {
+    $scope.board = board;
   }]);
