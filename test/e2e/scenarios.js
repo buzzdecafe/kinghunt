@@ -9,37 +9,46 @@ describe('my app', function() {
   });
 
 
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
-    expect(browser().location().url()).toBe("/view1");
+  it('should automatically redirect to /load when location hash/fragment is empty', function() {
+    expect(browser().location().url()).toBe("/load");
   });
 
 
-  describe('view1', function() {
+  describe('load', function() {
 
     beforeEach(function() {
-      browser().navigateTo('#/view1');
+      browser().navigateTo('#/load');
     });
 
-
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element('[ng-view] p:first').text()).
-        toMatch(/partial for view 1/);
+    it('should render the "load" view when user navigates to /load', function() {
+      expect(element('[ng-view] p:first').text()).toMatch(/partial for load view/);
     });
 
   });
 
 
-  describe('view2', function() {
+  describe('board', function() {
 
     beforeEach(function() {
-      browser().navigateTo('#/view2');
+      browser().navigateTo('#/board');
     });
 
-
-    it('should render view2 when user navigates to /view2', function() {
-      expect(element('[ng-view] p:first').text()).
-        toMatch(/partial for view 2/);
+    it('should render board view when user navigates to /board', function() {
+      expect(element('[ng-view] p:first').text()).toMatch(/partial for board view/);
     });
 
   });
+
+  describe('board', function() {
+
+    beforeEach(function() {
+      browser().navigateTo('#/board');
+    });
+
+    it('should render board view when user navigates to /board', function() {
+      expect(element('[ng-view] p:first').text()).toMatch(/partial for board view/);
+    });
+
+  });
+
 });

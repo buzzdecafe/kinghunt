@@ -6,7 +6,7 @@ describe('controllers', function(){
   beforeEach(module('myApp.controllers'));
 
 
-  it('should ....', inject(function() {
+  it('Load a game from a FEN position', inject(function() {
     //spec body
   }));
 

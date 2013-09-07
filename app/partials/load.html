@@ -1,1 +1,7 @@
-<p>This is the partial for view 1.</p>
+
+<div id="problem-book">
+    <p><em>{{book.title}}</em>, by {{book.author}}, {{book.year}}</p>
+    <ul>
+        <li ng-repeat="fen in book.fen"><a href="#/board?fen={{fen}}">Problem {{$index + 1}}</a></li>
+    </ul>
+</div>
