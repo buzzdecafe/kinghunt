@@ -12,5 +12,8 @@ angular.module('kinghunt.controllers', []).
     $scope.fen = $location.search().fen;
 
     $scope.board.position($scope.fen);
-
+  }]).
+  controller('AboutCtrl', ['$scope', 'version', 'credits',  function($scope, version) {
+    $scope.version = version;
+    $scope.credits = credits;
   }]);

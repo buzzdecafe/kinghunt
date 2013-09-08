@@ -19,6 +19,11 @@ angular.module('kinghunt.services', []).
       ]
     }
   ).
+  value('credits', [
+      {name: 'chess.js', url: 'https://github.com/jhlywa/chess.js'},
+      {name: 'chessboardjs', url: 'https://github.com/oakmac/chessboardjs'},
+      {name: 'angular-seed', url: 'https://github.com/angular/angular-seed'}
+  ]).
   factory('ChessBoard', function() {
     return new ChessBoard('board', 'start');
   });
