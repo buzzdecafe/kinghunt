@@ -23,12 +23,20 @@ describe('service', function() {
       expect(book instanceof Object).toBe(true);
 
       describe('book object', function() {
-        it('has the following attributes: id, title, author, year, fen', function() {
-          expect(book.id).toBeDefined();
+        it('has the following attributes: title, author, year, fen', function() {
           expect(book.title).toBeDefined();
-          expect(book.author).toBeDefined();
+          expect(book.authors instanceof Array).toBe(true);
           expect(book.year).toBeDefined();
           expect(book.fen instanceof Array).toBe(true);
+        });
+      });
+
+      describe('fen object', function() {
+        it('has attributes: id, stipulation, position', function() {
+          var fen0 = book.fen[0];
+          expect(fen0.id).toBeDefined();
+          expect(fen0.stipulation).toBeDefined();
+          expect(fen0.position).toBeDefined();
         });
       });
     }));
