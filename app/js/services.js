@@ -23,7 +23,4 @@ angular.module('kinghunt.services', []).
       {name: 'chess.js', url: 'https://github.com/jhlywa/chess.js'},
       {name: 'chessboardjs', url: 'https://github.com/oakmac/chessboardjs'},
       {name: 'Yet Another Chess Problem Database', url: 'http://www.yacpdb.org/'}
-  ]).
-  factory('ChessBoard', function() {
-    return new ChessBoard('board', 'start');
-  });
+  ]);
