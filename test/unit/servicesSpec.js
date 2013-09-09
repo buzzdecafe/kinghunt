@@ -45,9 +45,10 @@ describe('service', function() {
   describe('credits', function() {
     it('returns an array of name:url tuples', inject(function(credits){
       expect(credits).toEqual([
-          {name: 'chess.js', url: 'https://github.com/jhlywa/chess.js'},
-          {name: 'chessboardjs', url: 'https://github.com/oakmac/chessboardjs'},
-          {name: 'angular-seed', url: 'https://github.com/angular/angular-seed'}
+        {name: 'angular-seed', url: 'https://github.com/angular/angular-seed'},
+        {name: 'chess.js', url: 'https://github.com/jhlywa/chess.js'},
+        {name: 'chessboardjs', url: 'https://github.com/oakmac/chessboardjs'},
+        {name: 'Yet Another Chess Problem Database', url: 'http://www.yacpdb.org/'}
       ]);
     }));
 

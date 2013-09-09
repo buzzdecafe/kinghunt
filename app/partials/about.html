@@ -1,4 +1,7 @@
-<p>This is the partial for About.</p>
-<p>
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<p>KingHunt {{ 'version %VERSION%.' | interpolate }}, &copy; 2013 Michael Hurley</p>
+
+<h3>Acknowledgments</h3>
+<ul>
+  <li ng-repeat="credit in credits"><a href="{{credit.url}}">{{credit.name}}</a></li>
+</ul>
+

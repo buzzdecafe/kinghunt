@@ -13,7 +13,7 @@ angular.module('kinghunt.controllers', []).
 
     $scope.board.position($scope.fen);
   }]).
-  controller('AboutCtrl', ['$scope', 'version', 'credits',  function($scope, version) {
+  controller('AboutCtrl', ['$scope', 'version', 'credits',  function($scope, version, credits) {
     $scope.version = version;
     $scope.credits = credits;
   }]);
