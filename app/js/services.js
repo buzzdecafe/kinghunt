@@ -23,4 +23,11 @@ angular.module('kinghunt.services', []).
       {name: 'chess.js', url: 'https://github.com/jhlywa/chess.js'},
       {name: 'chessboardjs', url: 'https://github.com/oakmac/chessboardjs'},
       {name: 'Yet Another Chess Problem Database', url: 'http://www.yacpdb.org/'}
-  ]);
+  ]).
+  factory('fenFormat', function() {
+      return function(fen) {
+        // TODO: do a proper job on this
+        // stubbed out to append other attributes to satisfy chess.js
+        return fen + " w - - 0 1";
+      };
+  });

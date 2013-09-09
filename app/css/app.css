@@ -27,3 +27,9 @@
   content: "";
   padding: 0;
 }
+
+#board {
+  width: 90%;
+  text-align: center;
+  margin:auto;
+}
