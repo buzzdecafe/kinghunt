@@ -10,7 +10,7 @@ angular.module('kinghunt.controllers', []).
     var game = new Chess();
     var board;
     var fen = fenFormat($location.search().fen);
-    var updateStatus = function() {
+    var getStatus = function() {
       var moveColor = (game.turn() === 'b') ? "Black" : 'White';
       var status = "";
       if (game.in_checkmate() === true) {
@@ -35,6 +35,8 @@ angular.module('kinghunt.controllers', []).
       var move = moves[Math.floor(Math.random() * moves.length)];
       game.move(move);
       board.position(game.fen());
+      $scope.status = getStatus();
+      $scope.$apply();
     };
     var boardConf = {
       position: fen,
@@ -59,7 +61,8 @@ angular.module('kinghunt.controllers', []).
         if (move === null) {
           return 'snapback';
         }
-        $scope.status = updateStatus();
+        $scope.status = getStatus();
+        $scope.$apply();
         setTimeout(opponentMove, 500);
       },
       onSnapbackEnd: function() {
@@ -70,7 +73,7 @@ angular.module('kinghunt.controllers', []).
     game.load(boardConf.position);
     board = new ChessBoard('board', boardConf);
 
-    $scope.status = updateStatus();
+    $scope.status = getStatus();
     $scope.goal = $location.search().stip;
     $scope.fen = boardConf.position;
     $scope.board = board;
