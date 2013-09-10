@@ -8,7 +8,7 @@
     <h3>Or select a problem:</h3>
     <p><em>{{book.title}}</em>, {{book.year}}</p>
     <ul>
-        <li ng-repeat="fen in book.fen"><a href="#/board?fen={{fen.position}}&stip={{fen.stipulation}}">Problem {{$index + 1}}:
+        <li ng-repeat="fen in book.fen"><a href="#/board?fen={{fen.position}}&stip={{fen.stipulation | uriencode }}">Problem {{$index + 1}}:
           {{fen.stipulation | translateStipulation }}</a></li>
     </ul>
 </div>

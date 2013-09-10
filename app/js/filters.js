@@ -8,6 +8,11 @@ angular.module('kinghunt.filters', []).
       return String(text).replace(/\%VERSION\%/mg, version);
     };
   }]).
+  filter('uriencode', [function() {
+    return function(str) {
+      return encodeURIComponent(str);
+    };
+  }]).
   filter('translateStipulation', [function() {
     var mateInRx = /^#(\d+)$/;
     return function(stip) {
