@@ -1,15 +1,16 @@
 
+<!--
 <div id="entry">
   <h3>Enter a FEN:</h3>
   <div class="fenentry"></div>
 </div>
-
+-->
 <div id="problem-book">
-    <h3>Or select a problem:</h3>
+    <h3>Select a problem:</h3>
     <p><em>{{book.title}}</em>, {{book.year}}</p>
-    <ul>
-        <li ng-repeat="fen in book.fen"><a href="#/board?fen={{fen.position}}&stip={{fen.stipulation | uriencode }}">Problem {{$index + 1}}:
+    <ol>
+        <li ng-repeat="fen in book.fen"><a href="#/board?fen={{fen.position}}&stip={{fen.stipulation | uriencode }}">
           {{fen.stipulation | translateStipulation }}</a></li>
-    </ul>
+    </ol>
 </div>
 

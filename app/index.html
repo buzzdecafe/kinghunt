@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8">
   <title>King Hunt</title>
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="lib/chess/chessboardjs/css/chessboard-0.3.0.min.css"/>
   <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="#/load">Problems</a></li>
-    <li><a href="#/about">About</a></li>
-  </ul>
 
+  <div class="btn-toolbar">
+    <div class="btn-group">
+      <a class="btn" href="#/load"><i class="icon-home"></i></a>
+      <a class="btn" href="#/about"><i class="icon-question-sign"></i></a>
+    </div>
+  </div>
   <div ng-view></div>
 
-
   <script src="lib/jquery/jquery-1.10.2.min.js"></script>
+  <script src="lib/bootstrap/bootstrap.min.js"></script>
   <script src="lib/chess/chess.min.js"></script>
   <script src="lib/chess/chessboardjs/js/chessboard-0.3.0.js"></script>
   <script src="lib/angular/angular.js"></script>
