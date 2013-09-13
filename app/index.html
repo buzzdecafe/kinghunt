@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en" ng-app="kinghunt">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>King Hunt</title>
   <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="lib/chess/chessboardjs/css/chessboard-0.3.0.min.css"/>
@@ -9,12 +10,16 @@
 </head>
 <body>
 
-  <div class="navbar navbar-fixed-bottom btn-toolbar">
-    <div class="btn-group">
-      <a class="btn" href="#/load"><i class="icon-home"></i></a>
-      <a class="btn" href="#/about"><i class="icon-question-sign"></i></a>
-    </div>
-  </div>
+  <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="">
+      <ul class="nav nav-pills">
+        <li class=""><a href="#/">Home</a></li>
+        <li class=""><a href="#/about">About</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </nav>
+
   <div ng-view></div>
 
   <script src="lib/jquery/jquery-1.10.2.min.js"></script>

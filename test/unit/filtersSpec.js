@@ -23,8 +23,8 @@ describe('filter', function() {
     it("translates mate-in-x stipulation to a readable string", inject(function(translateStipulationFilter) {
       var mateInTwoStip = "#2";
       var mateInTenStip = "#10";
-      expect(translateStipulationFilter(mateInTwoStip)).toBe("Mate in 2");
-      expect(translateStipulationFilter(mateInTenStip)).toBe("Mate in 10");
+      expect(translateStipulationFilter(mateInTwoStip)).toBe("mate in 2");
+      expect(translateStipulationFilter(mateInTenStip)).toBe("mate in 10");
     }));
 
     xit("translates helpmate stipulation to a readable string", inject(function(translateStipulationFilter) {

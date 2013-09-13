@@ -42,6 +42,23 @@ describe('service', function() {
     }));
   });
 
+  describe('fenToObject', function() {
+    it("converts a FEN string to an object", inject(function(fenToObject) {
+      expect(fenToObject instanceof Function).toBe(true);
+
+      expect(fenToObject("7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6 w - - 0 1")).toEqual(
+          {
+            position: "7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6",
+            turn: "w",
+            castle: "-",
+            enpassant: "-",
+            ply: "0",
+            move: "1"
+          }
+      );
+    }));
+  });
+
   describe('credits', function() {
     it('returns an array of name:url tuples', inject(function(credits){
       expect(credits).toEqual([

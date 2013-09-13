@@ -3,20 +3,20 @@
 /* Controllers */
 
 angular.module('kinghunt.controllers', []).
-  controller('LoadCtrl', ['$scope', 'book', function($scope, book) {
+  controller('LoadCtrl', ['$scope', 'book', 'fenToObject', function($scope, book, fenToObject) {
     $scope.book = book;
   }]).
-  controller('BoardCtrl', ['$scope', '$location', 'fenFormat', function($scope, $location, fenFormat) {
+  controller('BoardCtrl', ['$scope', '$location', 'fenToObject', function($scope, $location, fenToObject) {
     var game = new Chess();
     var board;
-    var fen = fenFormat($location.search().fen);
+    var fen = $location.search().fen;
     var getStatus = function() {
       var moveColor = (game.turn() === 'b') ? "Black" : 'White';
       var status = "";
       if (game.in_checkmate() === true) {
-        status = 'Game over, ' + moveColor + ' is checkmated.';
+        status = 'Game over: ' + moveColor + ' is checkmated.';
       } else if (game.in_draw() === true) {
-        status = 'Game over, drawn position';
+        status = 'Game over: Drawn.';
       } else {
         status = moveColor + ' to move';
 
@@ -26,6 +26,18 @@ angular.module('kinghunt.controllers', []).
       }
       return status;
     };
+
+    var getGoalText = function(remaining) {
+      var txt = "";
+      if (game.in_checkmate() === true && remaining >= 1) {
+        return "Problem solved! Well done.";
+      } else if (remaining < 1) {
+        return "Problem failed";
+      } else {
+        return (remaining >> 0) +  " moves remaining.";
+      }
+    };
+
     // TODO: put some logic here for somebody's sake
     var opponentMove = function() {
       if (game.game_over()) {
@@ -62,8 +74,14 @@ angular.module('kinghunt.controllers', []).
           return 'snapback';
         }
         $scope.status = getStatus();
+        $scope.movesRemaining -= 0.5;
+        $scope.goalText = getGoalText($scope.movesRemaining);
+
+
         $scope.$apply();
-        setTimeout(opponentMove, 500);
+        if ($scope.mode === 'auto') {
+          setTimeout(opponentMove, 500);
+        }
       },
       onSnapbackEnd: function() {
         board.position(game.fen());
@@ -76,6 +94,8 @@ angular.module('kinghunt.controllers', []).
     $scope.status = getStatus();
     $scope.goal = $location.search().stip;
     $scope.fen = boardConf.position;
+    $scope.movesRemaining = +$scope.goal.substring(1);
+    $scope.goalText = getGoalText($scope.movesRemaining);
     $scope.board = board;
   }]).
   controller('AboutCtrl', ['$scope', 'version', 'credits',  function($scope, version, credits) {

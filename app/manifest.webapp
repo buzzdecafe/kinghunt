@@ -1,8 +1,9 @@
 {
-  "name": "King Hunt",
+  "name": "KingHunt",
   "description": "Chess problems",
-  "launch_path": "/app/index.html",
+  "launch_path": "index.html",
   "orientation": ["portrait"],
+  "fullscreen": true,
   "icons": {
     "128": "/img/icon-128.png"
   },

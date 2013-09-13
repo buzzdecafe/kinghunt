@@ -13,6 +13,17 @@ angular.module('kinghunt.services', []).
     {name: 'chessboardjs', url: 'https://github.com/oakmac/chessboardjs'},
     {name: 'Yet Another Chess Problem Database', url: 'http://www.yacpdb.org/'}
   ]).
+  value('fenToObject', function(fen) {
+      var parts = fen.split(/\s+/);
+      return {
+        position: parts[0],
+        turn: parts[1] || 'w',
+        castle: parts[2] || '-',
+        enpassant: parts[3] || '-',
+        ply: parts[4] || 0,
+        move: parts[5] || 1
+      };
+  }).
   factory('fenFormat', function() {
     return function(fen) {
       // TODO: do a proper job on this

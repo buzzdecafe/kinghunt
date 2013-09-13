@@ -1,3 +1,5 @@
 /* app css stylesheet */
 
-#board { }
+body {
+  padding-bottom: 70px;
+}
