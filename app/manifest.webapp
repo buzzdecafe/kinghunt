@@ -1,11 +1,14 @@
 {
   "name": "KingHunt",
+  "version": "0.0.1",
   "description": "Chess problems",
   "launch_path": "index.html",
   "orientation": ["portrait"],
   "fullscreen": true,
   "icons": {
-    "128": "/img/icon-128.png"
+    "128": "img/kinghunt-logo-128.png",
+    "60": "img/kinghunt-logo-60.png",
+    "30": "img/kinghunt-logo-30.png",
   },
   "developer": {
     "name": "Buzz de Cafe",

@@ -17,12 +17,12 @@ angular.module('kinghunt.filters', []).
     return function(fen) {
       var color = fenToObject(fen).turn === 'w' ? 'White' : 'Black';
       return color;
-    }
+    };
   }]).
   filter('wholeNumbers', [function() {
     return function(remaining) {
       return remaining >> 0;
-    }
+    };
   }]).
   filter('translateStipulation', [function() {
     var mateInRx = /^#(\d+)$/;
