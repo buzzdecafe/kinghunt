@@ -2,7 +2,7 @@
   "name": "KingHunt",
   "version": "0.0.1",
   "description": "Chess problems",
-  "launch_path": "app/index.html",
+  "launch_path": "/app/index.html",
   "orientation": ["portrait"],
   "fullscreen": true,
   "icons": {
