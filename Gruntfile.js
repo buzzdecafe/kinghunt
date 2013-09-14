@@ -39,8 +39,7 @@ module.exports = function(grunt) {
           archive: 'build/kinghunt.zip'
         },
         files: [
-          {src: ['app/**']}, // includes files in path and its subdirs
-          {expand: true, cwd: 'app/', src: ['**'], dest: '/'}, // makes all src relative to cwd
+          {src: ['app/**', 'manifest.webapp']}, // includes files in path and its subdirs
         ]
       }
     }
