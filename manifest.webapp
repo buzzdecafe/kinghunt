@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "Chess problems",
   "launch_path": "/app/index.html",
+  "permissions": {
+    browser: {
+      description: "To enable showing web pages";
+    };
+  },
   "orientation": ["portrait"],
   "icons": {
     "128": "/app/img/kinghunt-logo-128.png",
