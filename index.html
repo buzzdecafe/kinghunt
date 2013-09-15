@@ -31,11 +31,11 @@
         var manifestUrl = 'http://buzzdecafe.github.io/kinghunt/package.manifest';
         var req = navigator.mozApps.installPackage(manifestUrl);
         req.onsuccess = function() {
-          output.innerHTML = "<pre>" + JSON.stringify(this.result, null, 4) + "</pre>";
+          output.innerHTML = "<h3>Success</h3><pre>" + JSON.stringify(this.result, null, 4) + "</pre>";
           output.className = "succeed";
         };
         req.onerror = function() {
-          output.innerHTML =  "<pre>" + JSON.stringify(this.error, null, 4) + "</pre>";
+          output.innerHTML =  "<h3>Error</h3><pre>" + JSON.stringify(this.error, null, 4) + "</pre>";
           output.className = "fail";
         };
       }());
