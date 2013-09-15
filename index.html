@@ -2,6 +2,17 @@
 <html>
   <head>
     <title>KingHunt</title>
+    <style>
+      .fail {
+        padding: 3px;
+        border: 2px solid #ff0000;
+      }
+      .succeed {
+        padding: 3px;
+        border: 2px solid #00ff00;
+      }
+
+    </style>
   </head>
   <body>
     <h1>KingHunt</h1>
@@ -13,6 +24,7 @@
         var output = document.getElementById("output");
         if (!navigator.mozApps || !navigator.mozApps.installPackage) {
           output.innerHTML = "This is for installing on FirefoxOS. Maybe other platforms eventually.";
+          output.className = "fail";
           return;
         }
         // This URL must be a full url.
@@ -20,9 +32,11 @@
         var req = navigator.mozApps.installPackage(manifestUrl);
         req.onsuccess = function() {
           output.innerHTML = "<pre>" + JSON.stringify(this.resulti, null, 4) + "</pre>";
+          output.className = "succeed";
         };
         req.onerror = function() {
           output.innerHTML =  "<pre>" + JSON.stringify(this.error, null, 4) + "</pre>";
+          output.className = "fail";
         };
       }());
 
