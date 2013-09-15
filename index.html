@@ -6,16 +6,25 @@
   <body>
     <h1>KingHunt</h1>
     <p>Packaged app installation page</p>
+
+    <div id="output"></div>
     <script>
-      // This URL must be a full url.
-      var manifestUrl = 'http://buzzdecafe.github.io/kinghunt/package.manifest';
-      var req = navigator.mozApps.installPackage(manifestUrl);
-      req.onsuccess = function() {
-        alert(this.result.origin);
-      };
-      req.onerror = function() {
-        alert(this.error.name);
-      };
+      (function() {
+        var output = document.getElementById("output");
+        if (!navigator.mozApps) {
+          output.innerHTML = "This is for installing on FirefoxOS. Maybe other platforms eventually.";
+        }
+        // This URL must be a full url.
+        var manifestUrl = 'http://buzzdecafe.github.io/kinghunt/package.manifest';
+        var req = navigator.mozApps.install(manifestUrl);
+        req.onsuccess = function() {
+          output.innerHTML = this.result.origin;
+        };
+        req.onerror = function() {
+          output.innerHTML = this.error.name;
+        };
+      }());
+
     </script>
   </body>
 </html>
