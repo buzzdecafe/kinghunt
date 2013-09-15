@@ -87,7 +87,7 @@ angular.module('kinghunt.controllers', []).
 
         $scope.$apply();
         if ($scope.mode === 'auto') {
-          setTimeout(opponentMove, 500);
+          opponentMove();
         }
       },
       onSnapbackEnd: function() {
