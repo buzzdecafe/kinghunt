@@ -10,7 +10,7 @@
     <p><em>{{book.title}}</em>, {{book.year}}</p>
     <ul class="list-group">
       <li class="list-group-item" ng-repeat="fen in book.fen">
-        <a href="#/board?fen={{fen.position}}&stip={{fen.stipulation | uriencode }}">
+        <a href="#/board/{{fen.id}}">
         {{ fen.position | whoseTurn }} to play and {{fen.stipulation | translateStipulation }}
         </a>
       </li>

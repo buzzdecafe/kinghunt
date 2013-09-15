@@ -6,10 +6,9 @@ angular.module('kinghunt.controllers', []).
   controller('LoadCtrl', ['$scope', 'book', 'fenToObject', function($scope, book, fenToObject) {
     $scope.book = book;
   }]).
-  controller('BoardCtrl', ['$scope', '$location', 'fenToObject', function($scope, $location, fenToObject) {
+  controller('BoardCtrl', ['$scope', 'book', '$routeParams', 'fenToObject', function($scope, book, $routeParams, fenToObject) {
     var game = new Chess();
     var board;
-    var fen = $location.search().fen;
     var getStatus = function() {
       var moveColor = (game.turn() === 'b') ? "Black" : 'White';
       var status = "";
@@ -50,8 +49,16 @@ angular.module('kinghunt.controllers', []).
       $scope.status = getStatus();
       $scope.$apply();
     };
+
+
+
+    $scope.currentId = $routeParams.id;
+    $scope.book = book;
+    $scope.problem = book.getFenById($scope.currentId);
+    $scope.goal = $scope.problem.stipulation;
+
     var boardConf = {
-      position: fen,
+      position: $scope.problem.position,
       draggable: true,
       onDragStart: function(source, piece, position, orientation) {
         var turn = game.turn();
@@ -92,8 +99,6 @@ angular.module('kinghunt.controllers', []).
     board = new ChessBoard('board', boardConf);
 
     $scope.status = getStatus();
-    $scope.goal = $location.search().stip;
-    $scope.fen = boardConf.position;
     $scope.movesRemaining = +$scope.goal.substring(1);
     $scope.goalText = getGoalText($scope.movesRemaining);
     $scope.board = board;

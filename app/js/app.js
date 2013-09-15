@@ -8,7 +8,7 @@ angular.module('kinghunt', ['kinghunt.filters', 'kinghunt.services', 'kinghunt.d
         templateUrl: 'partials/load.html',
         controller: 'LoadCtrl'
     });
-    $routeProvider.when('/board', {
+    $routeProvider.when('/board/:id', {
         templateUrl: 'partials/board.html',
         controller: 'BoardCtrl'
     });
