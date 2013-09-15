@@ -31,7 +31,7 @@
         var manifestUrl = 'http://buzzdecafe.github.io/kinghunt/package.manifest';
         var req = navigator.mozApps.installPackage(manifestUrl);
         req.onsuccess = function() {
-          output.innerHTML = "<pre>" + JSON.stringify(this.resulti, null, 4) + "</pre>";
+          output.innerHTML = "<pre>" + JSON.stringify(this.result, null, 4) + "</pre>";
           output.className = "succeed";
         };
         req.onerror = function() {
