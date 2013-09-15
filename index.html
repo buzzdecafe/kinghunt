@@ -11,7 +11,7 @@
     <script>
       (function() {
         var output = document.getElementById("output");
-        if (!navigator.mozApps && !navigator.mozApps.installPackage) {
+        if (!navigator.mozApps || !navigator.mozApps.installPackage) {
           output.innerHTML = "This is for installing on FirefoxOS. Maybe other platforms eventually.";
           return;
         }
