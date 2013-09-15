@@ -13,6 +13,7 @@
         var output = document.getElementById("output");
         if (!navigator.mozApps && !navigator.mozApps.installPackage) {
           output.innerHTML = "This is for installing on FirefoxOS. Maybe other platforms eventually.";
+          return;
         }
         // This URL must be a full url.
         var manifestUrl = 'http://buzzdecafe.github.io/kinghunt/package.manifest';
