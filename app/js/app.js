@@ -19,4 +19,10 @@ angular.module('kinghunt', ['kinghunt.filters', 'kinghunt.services', 'kinghunt.d
     $routeProvider.otherwise({
         redirectTo: '/load'
     });
-  }]);
+  }]).
+  config( ['$compileProvider', function( $compileProvider ) {   
+      // whitelist 'app:/' protocol or angular will label it "unsafe":
+      $compileProvider.urlSanitizationWhitelist(/^\s*(https?|ftp|mailto|app):/);
+    }
+  ]);
+
