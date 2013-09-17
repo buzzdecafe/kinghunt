@@ -13,9 +13,9 @@ angular.module('kinghunt.filters', []).
       return encodeURIComponent(str);
     };
   }]).
-  filter('whoseTurn', ['fenToObject', function(fenToObject) {
+  filter('whoseTurn', ['bookSvc', function(bookSvc) {
     return function(fen) {
-      var color = fenToObject(fen).turn === 'w' ? 'White' : 'Black';
+      var color = bookSvc.fenToObject(fen).turn === 'w' ? 'White' : 'Black';
       return color;
     };
   }]).
