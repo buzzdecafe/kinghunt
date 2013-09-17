@@ -9,7 +9,7 @@
     <h3>Select a problem:</h3>
     <p><em>{{book.title}}</em>, {{book.year}}</p>
     <ul class="list-group">
-      <li class="list-group-item" ng-repeat="fen in book.fen">
+      <li class="list-group-item problem-list" ng-repeat="fen in book.fen">
         <a href="#/board/{{fen.id}}">
         {{ fen.position | whoseTurn }} to play and {{fen.stipulation | translateStipulation }}
         </a>

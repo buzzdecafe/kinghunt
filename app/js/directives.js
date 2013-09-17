@@ -9,6 +9,24 @@ angular.module('kinghunt.directives', []).
       elm.text(version);
     };
   }]).
+  directive('boardNav', ['$rootScope', function($rootScope) {
+      return {
+        restrict: 'C',
+        replace: true,
+        transclude: true,
+        templateUrl: 'partials/boardNav.html',
+        link: function(scope, element, attrs) {
+          var buttons = element.find('.board-button');
+          var prevProblem = element.find('#prevProblem');
+          var nextProblem = element.find('#nextProblem');
+          var undo = element.find('#undo');
+          var reload = element.find('#reload');
+          buttons.on('click', function(e) {
+            $rootScope.$broadcast('board/' + e.target.id);
+          })
+        }
+      };
+    }]).
   directive('fenentry', ['$window', function($window) {
     return {
       restrict: 'C',

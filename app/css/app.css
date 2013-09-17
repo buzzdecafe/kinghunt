@@ -3,3 +3,19 @@
 body {
   padding-bottom: 70px;
 }
+
+.problem-list {
+  padding: 0;
+}
+
+.problem-list a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  text-decoration: none;
+}
+.problem-list a:hover {
+  background-color: #428bca;
+  color: #fff;
+}

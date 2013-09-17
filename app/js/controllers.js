@@ -3,10 +3,16 @@
 /* Controllers */
 
 angular.module('kinghunt.controllers', []).
+  controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
+    $scope.show = $location.path().match(/board/);
+    $scope.$on('$locationChangeStart', function(e) {
+      $scope.show = $location.path().match(/board/);
+    });
+  }]).
   controller('LoadCtrl', ['$scope', 'book', 'fenToObject', function($scope, book, fenToObject) {
     $scope.book = book;
   }]).
-  controller('BoardCtrl', ['$scope', 'book', '$routeParams', 'fenToObject', function($scope, book, $routeParams, fenToObject) {
+  controller('BoardCtrl', ['$scope', '$route', 'book', '$routeParams', 'fenToObject', function($scope, $route, book, $routeParams, fenToObject) {
     var game = new Chess();
     var board;
     var getStatus = function() {
@@ -28,7 +34,7 @@ angular.module('kinghunt.controllers', []).
 
     var getGoalText = function(remaining) {
       var txt = "";
-      if (game.in_checkmate() === true && remaining >= 1) {
+      if (game.in_checkmate() === true && remaining >= 0) {
         return "Problem solved! Well done.";
       } else if (remaining < 1) {
         return "Problem failed";
@@ -102,6 +108,28 @@ angular.module('kinghunt.controllers', []).
     $scope.movesRemaining = +$scope.goal.substring(1);
     $scope.goalText = getGoalText($scope.movesRemaining);
     $scope.board = board;
+
+    // handle boardNav events
+    $scope.$on('board/prevProblem', function() {
+      console.log("get previous problem!");
+    });
+    $scope.$on('board/nextProblem', function() {
+      console.log("get next problem!");
+    });
+    $scope.$on('board/undo', function() {
+      var move = game.undo();
+      if (move) {
+        console.log('UNDO');
+        board.position(game.fen());
+        //TODO: rollback status and goal text
+      } else {
+        console.log('UNDO FAIL');
+      }
+    });
+    $scope.$on('board/reload', function() {
+      console.log('RELOAD');
+      $route.reload();
+    });
   }]).
   controller('AboutCtrl', ['$scope', 'version', 'credits',  function($scope, version, credits) {
     $scope.year = (new Date()).getFullYear();
