@@ -16,6 +16,9 @@ angular.module('kinghunt', ['kinghunt.filters', 'kinghunt.services', 'kinghunt.d
         templateUrl: 'partials/about.html',
         controller: 'AboutCtrl'
     });
+    $routeProvider.when('/reloadGame/:id', {
+      redirectTo: '/board/:id'
+    });
     $routeProvider.otherwise({
         redirectTo: '/load'
     });

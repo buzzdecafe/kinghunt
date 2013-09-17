@@ -9,7 +9,7 @@ angular.module('kinghunt.directives', []).
       elm.text(version);
     };
   }]).
-  directive('boardNav', ['$rootScope', function($rootScope) {
+  directive('boardNav', ['$rootScope', '$route', function($rootScope, $route) {
       return {
         restrict: 'C',
         replace: true,
@@ -22,8 +22,8 @@ angular.module('kinghunt.directives', []).
           var undo = element.find('#undo');
           var reload = element.find('#reload');
           buttons.on('click', function(e) {
-            $rootScope.$broadcast('board/' + e.target.id);
-          })
+            $rootScope.$broadcast('boardNav/' + e.target.id);
+          });
         }
       };
     }]).

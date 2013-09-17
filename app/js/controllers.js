@@ -12,7 +12,7 @@ angular.module('kinghunt.controllers', []).
   controller('LoadCtrl', ['$scope', 'bookSvc', function($scope, bookSvc) {
     $scope.book = bookSvc.book;
   }]).
-  controller('BoardCtrl', ['$scope', '$route', 'bookSvc', 'gameSvc', '$routeParams', function($scope, $route, bookSvc, gameSvc, $routeParams) {
+  controller('BoardCtrl', ['$scope', '$route', '$location', 'bookSvc', 'gameSvc', '$routeParams', function($scope, $route, $location, bookSvc, gameSvc, $routeParams) {
     var game = new Chess();
     var board;
 
@@ -29,34 +29,37 @@ angular.module('kinghunt.controllers', []).
     $scope.goalText = gameSvc.getGoalText(game, $scope.movesRemaining);
 
     // handle boardNav events
-    $scope.$on('board/prevProblem', function() {
+    $scope.$on('boardNav/prevProblem', function() {
       var prev = bookSvc.getPrev($scope.currentId);
       if (prev && prev.id) {
         $location.path('/board/' + prev.id);
       } else {
         $scope.status = "There is no previous problem!";
       }
+      $scope.$apply();
     });
-    $scope.$on('board/nextProblem', function() {
+    $scope.$on('boardNav/nextProblem', function() {
       var next = bookSvc.getPrev($scope.currentId);
       if (next && next.id) {
         $location.path('/board/' + next.id);
       } else {
         $scope.status = "There is no next problem!";
       }
+      $scope.$apply();
     });
-    $scope.$on('board/undo', function() {
+    $scope.$on('boardNav/undo', function() {
       var move = game.undo();
       if (move) {
-        console.log('UNDO');
         $scope.board.position(game.fen());
         //TODO: rollback status and goal text
       } else {
         $scope.status = "Failed to undo";
       }
+      $scope.$apply();
     });
-    $scope.$on('board/reload', function() {
+    $scope.$on('boardNav/reload', function() {
       $route.reload();
+      $scope.$apply();
     });
   }]).
   controller('AboutCtrl', ['$scope', 'version', 'credits',  function($scope, version, credits) {
