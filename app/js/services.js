@@ -26,9 +26,9 @@ angular.module('kinghunt.services', []).
         var moveColor = (game.turn() === 'b') ? "Black" : 'White';
         var status = "";
         if (game.in_checkmate() === true) {
-          status = 'Game over: ' + moveColor + ' is checkmated.';
+          status = moveColor + ' checkmated.';
         } else if (game.in_draw() === true) {
-          status = 'Game over: Drawn.';
+          status = 'Game drawn.';
         } else {
           status = moveColor + ' to move';
 
@@ -42,9 +42,9 @@ angular.module('kinghunt.services', []).
       getGoalText: function(game, remaining) {
         var txt = "";
         if (game.in_checkmate() === true && remaining >= 0) {
-          return "Problem solved! Well done.";
+          return "SOLVED";
         } else if (remaining < 1) {
-          return "Problem failed";
+          return "FAILED";
         } else {
           return (remaining >> 0) +  " moves remaining.";
         }

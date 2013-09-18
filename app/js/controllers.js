@@ -20,12 +20,12 @@ angular.module('kinghunt.controllers', []).
     $scope.book = bookSvc.book;
     $scope.problem = bookSvc.getFenById($scope.currentId);
     $scope.goal = $scope.problem.stipulation;
+    $scope.movesRemaining = +$scope.goal.substring(1);
 
-    game.load($scope.problem.position);
+      game.load($scope.problem.position);
 
     $scope.board = new ChessBoard('board', gameSvc.getBoardConfig($scope, game));
     $scope.status = gameSvc.getStatus(game);
-    $scope.movesRemaining = +$scope.goal.substring(1);
     $scope.goalText = gameSvc.getGoalText(game, $scope.movesRemaining);
 
     // handle boardNav events
@@ -51,7 +51,7 @@ angular.module('kinghunt.controllers', []).
       var move = game.undo();
       if (move) {
         $scope.board.position(game.fen());
-        //TODO: rollback status and goal text
+        $scope.status = gameSvc.getStatus(game);
       } else {
         $scope.status = "Failed to undo";
       }
