@@ -3,7 +3,9 @@
 body {
   padding-bottom: 70px;
 }
-
+.navbar {
+  min-height: 36px;
+}
 .problem-list {
   padding: 0;
 }

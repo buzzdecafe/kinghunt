@@ -39,7 +39,7 @@ angular.module('kinghunt.controllers', []).
       $scope.$apply();
     });
     $scope.$on('boardNav/nextProblem', function() {
-      var next = bookSvc.getPrev($scope.currentId);
+      var next = bookSvc.getNext($scope.currentId);
       if (next && next.id) {
         $location.path('/board/' + next.id);
       } else {
