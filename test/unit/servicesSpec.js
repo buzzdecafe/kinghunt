@@ -18,11 +18,32 @@ describe('service', function() {
     }));
   });
 
-  describe('book', function() {
-    it('should return a book object', inject(function(book) {
-      expect(book instanceof Object).toBe(true);
+  describe('bookSvc', function() {
+    it('should return an object with correct interface', inject(function(bookSvc) {
+      expect(bookSvc instanceof Object).toBe(true);
+      expect(bookSvc.getFenById instanceof Function).toBe(true);
+      expect(bookSvc.getNext instanceof Function).toBe(true);
+      expect(bookSvc.getPrev instanceof Function).toBe(true);
+      expect(bookSvc.fenToObject instanceof Function).toBe(true);
+      expect(bookSvc.book instanceof Object).toBe(true);
+
+      describe('fenToObject', function() {
+        if("converts a FEN string to an object", function() {
+          expect(fenToObject("7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6 w - - 0 1")).toEqual(
+            {
+              position: "7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6",
+              turn: "w",
+              castle: "-",
+              enpassant: "-",
+              ply: "0",
+              move: "1"
+            }
+          );
+        });
+      });
 
       describe('book object', function() {
+        var book = bookSvc.book;
         it('has the following attributes: title, author, year, fen', function() {
           expect(book.title).toBeDefined();
           expect(book.authors instanceof Array).toBe(true);
@@ -32,6 +53,7 @@ describe('service', function() {
       });
 
       describe('fen object', function() {
+        var book = bookSvc.book;
         it('has attributes: id, stipulation, position', function() {
           var fen0 = book.fen[0];
           expect(fen0.id).toBeDefined();
@@ -39,23 +61,6 @@ describe('service', function() {
           expect(fen0.position).toBeDefined();
         });
       });
-    }));
-  });
-
-  describe('fenToObject', function() {
-    it("converts a FEN string to an object", inject(function(fenToObject) {
-      expect(fenToObject instanceof Function).toBe(true);
-
-      expect(fenToObject("7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6 w - - 0 1")).toEqual(
-          {
-            position: "7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6",
-            turn: "w",
-            castle: "-",
-            enpassant: "-",
-            ply: "0",
-            move: "1"
-          }
-      );
     }));
   });
 
