@@ -13,74 +13,104 @@ angular.module('kinghunt.services', []).
     {name: 'Yet Another Chess Problem Database', url: 'http://www.yacpdb.org/'}
   ]).
   factory('gameSvc', function() {
-    var gameObj = {
-      getStatus: function(game, remaining) {
-        var moveColor = game.turn();
-        var isMate = game.in_checkmate();
-        var status = { 
-          turn: moveColor,
-          situation: "",
-          progress: ""
-        };
+    var gameObj = (function() {
+      var game;
 
-        if (isMate) {
-          status.situation = ' checkmated.';
-        } else if (game.in_draw()) {
-          status.situation = ' Drawn.';
-          status.progress = 'FAILED';
-        } else if (game.in_check() === true) {
-          status.situation = ' is in check';
-        } else {
-          status.situation = ' to move';
-        }
-
-        if (isMate && remaining >= 0) {
-          status.progress = "SOLVED";
-        } else if (remaining < 1) {
-          status.progress = "FAILED";
-        } else {
-          status.progress = (remaining >> 0) +  " moves to go";
-        }
-        return status;
-      },
-
-      getBoardConfig: function(scope, game) {
-        return {
-          position: scope.problem.position,
-          draggable: true,
-          onDragStart: function(source, piece, position, orientation) {
-            var turn = game.turn();
-            if (game.game_over() === true ||
-                (turn === 'w' && piece.search(/^b/) === 0) ||
-                (turn === 'b' && piece.search(/^w/) === 0)) {
-              return false;
-            }
-          },
-          onDrop: function(source, target) {
-            // see if the move is legal
-            var move = game.move({
-              from: source,
-              to: target,
-              promotion: 'q' // TODO: handle all promotions
-            });
-
-            // illegal move
-            if (move === null) {
-              return 'snapback';
-            }
-
-            scope.status = gameObj.getStatus(game);
-            scope.$apply();
-//            if (scope.mode === 'auto') {
-//              opponentMove();
-//            }
-          },
-          onSnapbackEnd: function() {
-            scope.board.position(game.fen());
+      return {
+        getGame: function() {
+          if  (!game) {
+            game = new Chess();
           }
+          return game;
+        },
+
+        getMovesRemaining: function(goalMoves) {
+          // TODO: at present, only for "w to play & mate" scenarios; expand for more scenarios
+          var moves = gameObj.fenToObject(game.fen()).move;
+          return goalMoves - moves + 1
+        },
+
+        getStatus: function(goalMoves) {
+          var moveColor = game.turn();
+          var isMate = game.in_checkmate();
+          var remaining = gameObj.getMovesRemaining(goalMoves);
+          var status = {
+            turn: moveColor,
+            situation: "",
+            progress: ""
+          };
+
+          if (isMate) {
+            status.situation = ' checkmated.';
+          } else if (game.in_draw()) {
+            status.situation = ' Drawn.';
+            status.progress = 'FAILED';
+          } else if (game.in_check() === true) {
+            status.situation = ' is in check';
+          } else {
+            status.situation = ' to move';
+          }
+
+          if (isMate && remaining >= 0) {
+            status.progress = "SOLVED";
+          } else if (remaining < 1) {
+            status.progress = "FAILED";
+          } else {
+            status.progress = remaining +  " moves to go";
+          }
+          return status;
+        },
+
+        getBoardConfig: function(scope) {
+          return {
+            position: scope.problem.position,
+            draggable: true,
+            onDragStart: function(source, piece, position, orientation) {
+              var turn = game.turn();
+              if (game.game_over() === true ||
+                  (turn === 'w' && piece.search(/^b/) === 0) ||
+                  (turn === 'b' && piece.search(/^w/) === 0)) {
+                return false;
+              }
+            },
+            onDrop: function(source, target) {
+              // see if the move is legal
+              var move = game.move({
+                from: source,
+                to: target,
+                promotion: 'q' // TODO: handle all promotions
+              });
+
+              // illegal move
+              if (move === null) {
+                return 'snapback';
+              }
+
+              scope.status = gameObj.getStatus(scope.goalMoves);
+              scope.$apply();
+  //            if (scope.mode === 'auto') {
+  //              opponentMove();
+  //            }
+            },
+            onSnapbackEnd: function() {
+              scope.board.position(game.fen());
+            }
+          }
+        },
+
+        fenToObject: function(fen) {
+          var parts = fen.split(/\s+/);
+          return {
+            position: parts[0],
+            turn: parts[1] || 'w',
+            castle: parts[2] || '-',
+            enpassant: parts[3] || '-',
+            ply: parts[4] || 0,
+            move: parts[5] || 1
+          };
         }
-      }
-    };
+      };
+    }());
 
     return gameObj;
   }).
@@ -112,17 +142,6 @@ angular.module('kinghunt.services', []).
               return (fens[i - 1]) ? fens[i - 1] : null;
             }
           }
-        },
-        fenToObject: function(fen) {
-          var parts = fen.split(/\s+/);
-          return {
-            position: parts[0],
-            turn: parts[1] || 'w',
-            castle: parts[2] || '-',
-            enpassant: parts[3] || '-',
-            ply: parts[4] || 0,
-            move: parts[5] || 1
-          };
         },
         setBook: function(newBook) {
           this.book = newBook;

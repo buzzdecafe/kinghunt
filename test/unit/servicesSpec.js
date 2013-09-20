@@ -24,23 +24,7 @@ describe('service', function() {
       expect(bookSvc.getFenById instanceof Function).toBe(true);
       expect(bookSvc.getNext instanceof Function).toBe(true);
       expect(bookSvc.getPrev instanceof Function).toBe(true);
-      expect(bookSvc.fenToObject instanceof Function).toBe(true);
       expect(bookSvc.book instanceof Object).toBe(true);
-
-      describe('fenToObject', function() {
-        if("converts a FEN string to an object", function() {
-          expect(fenToObject("7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6 w - - 0 1")).toEqual(
-            {
-              position: "7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6",
-              turn: "w",
-              castle: "-",
-              enpassant: "-",
-              ply: "0",
-              move: "1"
-            }
-          );
-        });
-      });
 
       describe('book object', function() {
         var book = bookSvc.book;
@@ -59,6 +43,27 @@ describe('service', function() {
           expect(fen0.id).toBeDefined();
           expect(fen0.stipulation).toBeDefined();
           expect(fen0.position).toBeDefined();
+        });
+      });
+    }));
+  });
+
+  describe('gameSvc', function() {
+    it('should return an object with correct interface', inject(function(gameSvc) {
+      expect(gameSvc.fenToObject instanceof Function).toBe(true);
+
+      describe('fenToObject', function() {
+        if("converts a FEN string to an object", function() {
+          expect(fenToObject("7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6 w - - 0 1")).toEqual(
+              {
+                position: "7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6",
+                turn: "w",
+                castle: "-",
+                enpassant: "-",
+                ply: "0",
+                move: "1"
+              }
+          );
         });
       });
     }));
