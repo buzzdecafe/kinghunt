@@ -22,11 +22,10 @@ angular.module('kinghunt.controllers', []).
     $scope.goal = $scope.problem.stipulation;
     $scope.movesRemaining = +$scope.goal.substring(1);
 
-      game.load($scope.problem.position);
+    game.load($scope.problem.position);
 
     $scope.board = new ChessBoard('board', gameSvc.getBoardConfig($scope, game));
-    $scope.status = gameSvc.getStatus(game);
-    $scope.goalText = gameSvc.getGoalText(game, $scope.movesRemaining);
+    $scope.status = gameSvc.getStatus(game, $scope.movesRemaining);
 
     // handle boardNav events
     $scope.$on('boardNav/prevProblem', function() {
@@ -34,7 +33,7 @@ angular.module('kinghunt.controllers', []).
       if (prev && prev.id) {
         $location.path('/board/' + prev.id);
       } else {
-        $scope.status = "There is no previous problem!";
+        $scope.status.situation = "No previous problem!";
       }
       $scope.$apply();
     });
@@ -43,7 +42,7 @@ angular.module('kinghunt.controllers', []).
       if (next && next.id) {
         $location.path('/board/' + next.id);
       } else {
-        $scope.status = "There is no next problem!";
+        $scope.status.situation = "No next problem!";
       }
       $scope.$apply();
     });
@@ -51,9 +50,9 @@ angular.module('kinghunt.controllers', []).
       var move = game.undo();
       if (move) {
         $scope.board.position(game.fen());
-        $scope.status = gameSvc.getStatus(game);
+        $scope.status = gameSvc.getStatus(game, $scope.movesRemaining);
       } else {
-        $scope.status = "Failed to undo";
+        $scope.status.situation = "Failed to undo";
       }
       $scope.$apply();
     });

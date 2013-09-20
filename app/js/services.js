@@ -12,42 +12,36 @@ angular.module('kinghunt.services', []).
     {name: 'chessboardjs', url: 'https://github.com/oakmac/chessboardjs'},
     {name: 'Yet Another Chess Problem Database', url: 'http://www.yacpdb.org/'}
   ]).
-  factory('fenFormat', function() {
-    return function(fen) {
-      // TODO: do a proper job on this
-      // stubbed out to append other attributes to satisfy chess.js
-      return fen;
-      //return fen + " w - - 0 1";
-    };
-  }).
   factory('gameSvc', function() {
     var gameObj = {
-      getStatus: function(game) {
-        var moveColor = (game.turn() === 'b') ? "Black" : 'White';
-        var status = "";
-        if (game.in_checkmate() === true) {
-          status = moveColor + ' checkmated.';
-        } else if (game.in_draw() === true) {
-          status = 'Game drawn.';
-        } else {
-          status = moveColor + ' to move';
+      getStatus: function(game, remaining) {
+        var moveColor = game.turn();
+        var isMate = game.in_checkmate();
+        var status = { 
+          turn: moveColor,
+          situation: "",
+          progress: ""
+        };
 
-          if (game.in_check() === true) {
-            status += ', ' + moveColor + ' is in check';
-          }
+        if (isMate) {
+          status.situation = ' checkmated.';
+        } else if (game.in_draw()) {
+          status.situation = ' Drawn.';
+          status.progress = 'FAILED';
+        } else if (game.in_check() === true) {
+          status.situation = ' is in check';
+        } else {
+          status.situation = ' to move';
+        }
+
+        if (isMate && remaining >= 0) {
+          status.progress = "SOLVED";
+        } else if (remaining < 1) {
+          status.progress = "FAILED";
+        } else {
+          status.progress = (remaining >> 0) +  " moves to go";
         }
         return status;
-      },
-
-      getGoalText: function(game, remaining) {
-        var txt = "";
-        if (game.in_checkmate() === true && remaining >= 0) {
-          return "SOLVED";
-        } else if (remaining < 1) {
-          return "FAILED";
-        } else {
-          return (remaining >> 0) +  " moves remaining.";
-        }
       },
 
       getBoardConfig: function(scope, game) {
@@ -74,11 +68,8 @@ angular.module('kinghunt.services', []).
             if (move === null) {
               return 'snapback';
             }
+
             scope.status = gameObj.getStatus(game);
-            scope.movesRemaining -= 0.5;
-            scope.goalText = gameObj.getGoalText(game, scope.movesRemaining);
-
-
             scope.$apply();
 //            if (scope.mode === 'auto') {
 //              opponentMove();

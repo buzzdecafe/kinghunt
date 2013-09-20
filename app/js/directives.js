@@ -10,23 +10,36 @@ angular.module('kinghunt.directives', []).
     };
   }]).
   directive('boardNav', ['$rootScope', '$route', function($rootScope, $route) {
-      return {
-        restrict: 'C',
-        replace: true,
-        transclude: true,
-        templateUrl: 'partials/boardNav.html',
-        link: function(scope, element, attrs) {
-          var buttons = element.find('.board-button');
-          var prevProblem = element.find('#prevProblem');
-          var nextProblem = element.find('#nextProblem');
-          var undo = element.find('#undo');
-          var reload = element.find('#reload');
-          buttons.on('click', function(e) {
-            $rootScope.$broadcast('boardNav/' + e.target.id);
-          });
-        }
-      };
-    }]).
+    return {
+      restrict: 'C',
+      replace: true,
+      transclude: true,
+      templateUrl: 'partials/boardNav.html',
+      link: function(scope, element, attrs) {
+        var buttons = element.find('.board-button');
+        var prevProblem = element.find('#prevProblem');
+        var nextProblem = element.find('#nextProblem');
+        var undo = element.find('#undo');
+        var reload = element.find('#reload');
+        buttons.on('click', function(e) {
+          $rootScope.$broadcast('boardNav/' + e.target.id);
+        });
+      }
+    };
+  }]).
+  directive('solveStatus', [function() {
+    return {
+      restrict: 'C',
+      replace: true,
+      transclude: true,
+      template: '<div><span class="turn turn-{{ status.turn }}"></span> <span>{{ status.situation }}</span>; <span>{{ status.progress }}</span></div>',
+      link: function(scope, element, attrs) {
+        console.log('scope', scope);
+        console.log('element', element);
+        console.log('attrs', attrs);
+      }
+    };
+  }]).
   directive('fenentry', ['$window', function($window) {
     return {
       restrict: 'C',
