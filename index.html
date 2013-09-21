@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>KingHunt</title>
     <style>
-      .fail {
+      .Error {
         padding: 3px;
         border: 2px solid #ff0000;
       }
-      .succeed {
+      .Success {
         padding: 3px;
         border: 2px solid #00ff00;
       }
@@ -16,28 +18,31 @@
   </head>
   <body>
     <h1>KingHunt</h1>
-    <p>Packaged app installation page</p>
+    <p>FirefoxOS packaged app installation page</p>
 
     <div id="output"></div>
     <script>
       (function() {
         var output = document.getElementById("output");
+        var manifestUrl = 'http://buzzdecafe.github.io/kinghunt/package.manifest';
+        var req;
+
+        function logToScreen(type) {
+          return function() {
+            output.innerHTML = "<h3>" + type + "</h3><pre>" + JSON.stringify(this, null, 4) + "</pre>";
+            output.className = type;
+          };
+        }
+
         if (!navigator.mozApps || !navigator.mozApps.installPackage) {
           output.innerHTML = "This is for installing on FirefoxOS. Maybe other platforms eventually.";
           output.className = "fail";
           return;
         }
-        // This URL must be a full url.
-        var manifestUrl = 'http://buzzdecafe.github.io/kinghunt/package.manifest';
-        var req = navigator.mozApps.installPackage(manifestUrl);
-        req.onsuccess = function() {
-          output.innerHTML = "<h3>Success</h3><pre>" + JSON.stringify(this.result, null, 4) + "</pre>";
-          output.className = "succeed";
-        };
-        req.onerror = function() {
-          output.innerHTML =  "<h3>Error</h3><pre>" + JSON.stringify(this.error, null, 4) + "</pre>";
-          output.className = "fail";
-        };
+
+        req = navigator.mozApps.installPackage(manifestUrl);
+        req.onsuccess = logToScreen("Success");
+        req.onerror = logToScreen("Error");
       }());
 
     </script>
