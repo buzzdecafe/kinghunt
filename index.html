@@ -29,7 +29,11 @@
 
         function logToScreen(type) {
           return function() {
-            output.innerHTML = "<h3>" + type + "</h3><pre>" + JSON.stringify(this, null, 4) + "</pre>";
+            output.innerHTML = "<h3>" + type + "</h3><ul>" +
+                "<li>ReadyState: " + this.readyState + "</li>" +
+                "<li>Request Result: " + this.request.result + "</li>" +
+                "<li>Error: " + this.error.name + "</li>" +
+                "</ul>";
             output.className = type;
           };
         }
