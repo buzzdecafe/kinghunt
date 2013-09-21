@@ -24,8 +24,12 @@ h4 {
   background-color: #428bca;
   color: #fff;
 }
+.stipulation {
+  font-weight: bold;
+}
 .author {
   font-style: italic;
+  padding-left: 6px;
 }
 .turn {
   display: inline-block;

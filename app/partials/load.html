@@ -11,7 +11,7 @@
     <ul class="list-group">
       <li class="list-group-item problem-list" ng-repeat="problem in book.problems">
         <a href="#/board/{{problem.id}}">
-          <div>{{ problem.fen | whoseTurn }} to play and {{problem.stipulation | translateStipulation }}</div>
+          <div class="stipulation">{{ problem.fen | whoseTurn }} to play and {{problem.stipulation | translateStipulation }}</div>
           <div class="author">{{ problem.author }}</div>
         </a>
       </li>
