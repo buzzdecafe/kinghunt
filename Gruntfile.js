@@ -2,7 +2,7 @@ module.exports = function(grunt) {
   'use strict';
 
   grunt.initConfig({
-
+    pkg: grunt.file.readJSON('package.json'),
     jshint: {
       files: ['app/js/*.js', 'test/e2e/*.js', 'test/unit/*.js'],
       options: {
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
           archive: 'build/kinghunt.zip'
         },
         files: [
-          {src: ['app/**', 'manifest.webapp']}, // includes files in path and its subdirs
+          {src: ['app/**', 'VERSION', 'manifest.webapp']}, // includes files in path and its subdirs
         ]
       }
     }
