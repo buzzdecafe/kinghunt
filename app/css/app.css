@@ -31,6 +31,9 @@ h4 {
   font-style: italic;
   padding-left: 6px;
 }
+.solveStatus {
+  padding-left: 6px;
+}
 .turn {
   display: inline-block;
   width: 16px;
@@ -41,6 +44,9 @@ h4 {
 }
 .turn-w {
   background-image: url(../img/wK16.png);
+}
+.info {
+  padding: 2px 6px 1px 2px;
 }
 .board-wrap {
   text-align: center;

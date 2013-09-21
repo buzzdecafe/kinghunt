@@ -57,7 +57,7 @@ angular.module('kinghunt.services', []).
           } else if (remaining < 1) {
             status.progress = "FAILED";
           } else {
-            status.progress = remaining +  " moves to go";
+            status.progress = "(" + remaining +  " to go)";
           }
           return status;
         },
