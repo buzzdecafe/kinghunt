@@ -3,6 +3,9 @@
 body {
   padding-bottom: 70px;
 }
+h4 {
+  margin:2px 0;
+}
 .navbar {
   min-height: 36px;
 }
@@ -32,4 +35,10 @@ body {
 }
 .turn-w {
   background-image: url(../img/wK16.png);
+}
+.board-wrap {
+  text-align: center;
+}
+.board-wrap > div > div {
+  margin: auto;
 }

@@ -22,7 +22,7 @@ angular.module('kinghunt.controllers', []).
     $scope.goal = $scope.problem.stipulation;
     $scope.goalMoves = +$scope.goal.substr(1); // TODO: handle more cases
 
-    game.load($scope.problem.position);
+    game.load($scope.problem.fen);
 
     $scope.board = new ChessBoard('board', gameSvc.getBoardConfig($scope));
     $scope.status = gameSvc.getStatus($scope.goalMoves);

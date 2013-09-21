@@ -30,19 +30,19 @@ describe('service', function() {
         var book = bookSvc.book;
         it('has the following attributes: title, author, year, fen', function() {
           expect(book.title).toBeDefined();
-          expect(book.authors instanceof Array).toBe(true);
           expect(book.year).toBeDefined();
-          expect(book.fen instanceof Array).toBe(true);
+          expect(book.problems instanceof Array).toBe(true);
         });
       });
 
       describe('fen object', function() {
         var book = bookSvc.book;
         it('has attributes: id, stipulation, position', function() {
-          var fen0 = book.fen[0];
-          expect(fen0.id).toBeDefined();
-          expect(fen0.stipulation).toBeDefined();
-          expect(fen0.position).toBeDefined();
+          var problem = book.problems[0];
+          expect(problem.id).toBeDefined();
+          expect(problem.stipulation).toBeDefined();
+          expect(problem.fen).toBeDefined();
+          expect(problem.author).toBeDefined();
         });
       });
     }));
