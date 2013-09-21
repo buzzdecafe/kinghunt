@@ -26,8 +26,9 @@ angular.module('kinghunt.services', []).
 
         getMovesRemaining: function(goalMoves) {
           // TODO: at present, only for "w to play & mate" scenarios; expand for more scenarios
-          var moves = gameObj.fenToObject(game.fen()).move;
-          return goalMoves - moves + 1
+          var fenObj = gameObj.fenToObject(game.fen());
+          var remaining = goalMoves - fenObj.fullmove;
+          return (fenObj.turn === 'w') ? remaining + 1 : remaining;
         },
 
         getStatus: function(goalMoves) {
@@ -105,8 +106,8 @@ angular.module('kinghunt.services', []).
             turn: parts[1] || 'w',
             castle: parts[2] || '-',
             enpassant: parts[3] || '-',
-            ply: parts[4] || 0,
-            move: parts[5] || 1
+            halfmove: parts[4] || 0,
+            fullmove: parts[5] || 1
           };
         }
       };
