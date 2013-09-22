@@ -40,6 +40,18 @@ angular.module('kinghunt.directives', []).
       }
     };
   }]).
+  directive('solvedMark', [function() {
+    return {
+      restrict: 'C',
+      replace: true,
+      transclude: true,
+      template: '<div class="pull-right selected-marker-{{ }}"><i class="icon-{{ }}"></i></div>',
+      link: function(scope, element, attrs) {
+        // update model
+        // toggle checkmark
+      }
+    };
+  }]).
   directive('fenentry', ['$window', function($window) {
     return {
       restrict: 'C',

@@ -17,8 +17,9 @@ For FirefoxOS to start. [Installation page for FirefoxOS](http://buzzdecafe.gith
 * develop better AI!
 * integrate grunt-jasmine-angular
 * ~~grunt task to build the firefoxos webapp~~
-* mark problems solved and persist somewhere (localStorage?)
+* mark problems solved and persist somewhere (localStorage? indexedDB?)
 * limit book length for performance reasons
+* grunt task to add VERSION file in archive
 
 ## Version
 
