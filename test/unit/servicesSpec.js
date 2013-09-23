@@ -14,12 +14,6 @@ describe('service', function() {
     }));
   });
 
-  describe('ChessBoard', function() {
-    xit('should return a ChessBoard object', inject(function(ChessBoard) {
-        expect(ChessBoard instanceof ChessBoard).toBe(true);
-    }));
-  });
-
   describe('bookSvc', function() {
     it('should return an object with correct interface', inject(function(bookSvc) {
       expect(bookSvc instanceof Object).toBe(true);
