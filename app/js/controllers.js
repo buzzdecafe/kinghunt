@@ -17,6 +17,16 @@ angular.module('kinghunt.controllers', []).
     var game = gameSvc.getGame();
     var board;
 
+    $scope.setStatus = function(status) {
+      $scope.status = status;
+      // side effects:
+      if (status.progress === "SOLVED") {
+        bookSvc.markSolved($scope.currentId);
+      } else if (status.progress === "FAILED") {
+        bookSvc.markUnsolved($scope.currentId);
+      }
+    };
+
     $scope.currentId = $routeParams.id;
     $scope.book = bookSvc.book;
     $scope.problem = bookSvc.getFenById($scope.currentId);
@@ -26,7 +36,7 @@ angular.module('kinghunt.controllers', []).
     game.load($scope.problem.fen);
 
     $scope.board = new ChessBoard('board', gameSvc.getBoardConfig($scope));
-    $scope.status = gameSvc.getStatus($scope.goalMoves);
+    $scope.setStatus(gameSvc.getStatus($scope.goalMoves));
 
     // handle boardNav events
     $scope.$on('boardNav/prevProblem', function() {

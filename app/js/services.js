@@ -87,7 +87,7 @@ angular.module('kinghunt.services', []).
                 return 'snapback';
               }
 
-              scope.status = gameObj.getStatus(scope.goalMoves);
+              scope.setStatus(gameObj.getStatus(scope.goalMoves));
               scope.$apply();
   //            if (scope.mode === 'auto') {
   //              opponentMove();
