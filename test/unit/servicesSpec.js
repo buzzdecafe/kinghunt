@@ -174,8 +174,8 @@ describe('service', function() {
 
       expect(gameSvc.fenToObject instanceof Function).toBe(true);
       describe('fenToObject', function() {
-        if("converts a FEN string to an object", function() {
-          expect(fenToObject(testFen2)).toEqual(
+        it("converts a FEN string to an object", function() {
+          expect(gameSvc.fenToObject(testFen2)).toEqual(
               {
                 position: "3N4/7r/N2p4/1p1k1p2/4qP2/1KB3P1/Q5B1/2b5",
                 turn: "w",
@@ -200,5 +200,4 @@ describe('service', function() {
     }));
 
   });
-
 });

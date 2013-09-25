@@ -96,7 +96,7 @@ angular.module('kinghunt.services', []).
             onSnapbackEnd: function() {
               scope.board.position(game.fen());
             }
-          }
+          };
         },
 
         fenToObject: function(fen) {

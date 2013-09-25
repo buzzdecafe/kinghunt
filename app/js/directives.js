@@ -32,12 +32,7 @@ angular.module('kinghunt.directives', []).
       restrict: 'C',
       replace: true,
       transclude: true,
-      template: '<div><span class="turn turn-{{ status.turn }}"></span> <span>{{ status.situation }}</span> <span>{{ status.progress }}</span></div>',
-      link: function(scope, element, attrs) {
-        console.log('scope', scope);
-        console.log('element', element);
-        console.log('attrs', attrs);
-      }
+      template: '<div><span class="turn turn-{{ status.turn }}"></span> <span>{{ status.situation }}</span> <span>{{ status.progress }}</span></div>'
     };
   }]).
   directive('solvedMark', ['bookSvc', function(bookSvc) {
