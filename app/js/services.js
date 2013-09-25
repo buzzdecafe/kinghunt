@@ -153,22 +153,29 @@ angular.module('kinghunt.services', []).
           }
         },
 
+        setBook: function(newBook) {
+          this.book = newBook;
+        },
+
+        // TODO: unstub; move to indexedDB
         solved: {
           "2118": true,
           "2119": true,
           "2125": true
         },
 
+        isSolved: function(id) {
+          return this.solved[id];
+        },
+
+        // TODO: unstub
         markSolved: function(id) {
           this.solved[id] = true;
         },
 
+        // TODO: unstub
         markUnsolved: function(id) {
           delete this.solved[id];
-        },
-
-        setBook: function(newBook) {
-          this.book = newBook;
         },
 
         book: {

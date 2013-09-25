@@ -15,11 +15,14 @@ describe('service', function() {
   });
 
   describe('bookSvc', function() {
+
     it('should return an object with correct interface', inject(function(bookSvc) {
       expect(bookSvc instanceof Object).toBe(true);
       expect(bookSvc.getFenById instanceof Function).toBe(true);
       expect(bookSvc.getNext instanceof Function).toBe(true);
       expect(bookSvc.getPrev instanceof Function).toBe(true);
+      expect(bookSvc.markSolved instanceof Function).toBe(true);
+      expect(bookSvc.markUnsolved instanceof Function).toBe(true);
       expect(bookSvc.book instanceof Object).toBe(true);
 
       describe('book object', function() {
@@ -41,6 +44,40 @@ describe('service', function() {
           expect(problem.author).toBeDefined();
         });
       });
+
+      describe("solved interface", function() {
+
+        beforeEach(function() {
+          delete bookSvc.solved.test;
+        });
+
+        describe('isSolved', function() {
+          it("reports the T|F status of a problem", function() {
+            expect(bookSvc.isSolved("test")).toBeFalsy(); // should be undef
+            bookSvc.markSolved("test");
+            expect(bookSvc.isSolved("test")).toBe(true);
+          });
+        });
+
+        describe('markSolved', function() {
+          it("adds the id to the solved object", function() {
+            bookSvc.markSolved("test");
+            expect(bookSvc.isSolved("test")).toBe(true);
+          });
+        });
+
+        describe('markUnsolved', function() {
+          it("removes the entry from the solved db", function() {
+            expect(bookSvc.isSolved("test")).toBeFalsy(); // should be undef
+            bookSvc.markSolved("test");
+            expect(bookSvc.isSolved("test")).toBe(true);
+            bookSvc.markUnsolved("test");
+            expect(bookSvc.isSolved("test")).toBeFalsy();
+          });
+        });
+      });
+
+
     }));
   });
 
