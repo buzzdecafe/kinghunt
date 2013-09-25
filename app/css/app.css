@@ -34,6 +34,12 @@ h4 {
 .solveStatus {
   padding-left: 6px;
 }
+.solved {
+  color: #428BCA;
+}
+.unsolved {
+  color: #cee;
+}
 .turn {
   display: inline-block;
   width: 16px;

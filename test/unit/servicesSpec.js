@@ -175,14 +175,14 @@ describe('service', function() {
       expect(gameSvc.fenToObject instanceof Function).toBe(true);
       describe('fenToObject', function() {
         if("converts a FEN string to an object", function() {
-          expect(fenToObject("7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6 w - - 0 1")).toEqual(
+          expect(fenToObject(testFen2)).toEqual(
               {
-                position: "7n/3NR3/1P3p2/1p1kbN1B/1p6/1K6/6b1/1Q6",
+                position: "3N4/7r/N2p4/1p1k1p2/4qP2/1KB3P1/Q5B1/2b5",
                 turn: "w",
                 castle: "-",
                 enpassant: "-",
-                ply: "0",
-                move: "1"
+                halfmove: "0",
+                fullmove: "1"
               }
           );
         });

@@ -40,14 +40,23 @@ angular.module('kinghunt.directives', []).
       }
     };
   }]).
-  directive('solvedMark', [function() {
+  directive('solvedMark', ['bookSvc', function(bookSvc) {
     return {
       restrict: 'C',
       replace: true,
-      transclude: true,
-      template: '<div class="pull-right selected-marker-{{ }}"><i class="icon-{{ }}"></i></div>',
+      template: '<button class="pull-right btn btn-default"><span class="glyphicon {{ solved[problem.id] | toProblemClass }}"></span></button>',
       link: function(scope, element, attrs) {
         // update model
+        element.on('click', function(e) {
+          var id = scope.problem.id;
+          var icon = element.find("span.glyphicon");
+          if (icon.is(".solved")) {
+            bookSvc.markUnsolved(id);
+          } else {
+            bookSvc.markSolved(id);
+          }
+          scope.$apply();
+        });
         // toggle checkmark
       }
     };

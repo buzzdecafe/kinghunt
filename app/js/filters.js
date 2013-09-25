@@ -24,6 +24,11 @@ angular.module('kinghunt.filters', []).
       return remaining >> 0;
     };
   }]).
+  filter('toProblemClass', function() {
+    return function(isSolved) {
+      return isSolved ? "glyphicon-check solved" : "glyphicon-unchecked unsolved";
+    };
+  }).
   filter('translateStipulation', [function() {
     var mateInRx = /^#(\d+)$/;
     return function(stip) {

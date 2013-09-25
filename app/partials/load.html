@@ -6,12 +6,14 @@
 </div>
 -->
 <div id="problem-book">
-    <h3>Select a problem:</h3>
+    <img src="img/kinghunt-logo-60.png" align="right" />
+    <h3>KingHunt</h3>
     <p><em>{{book.title}}</em>, {{book.year}}</p>
-    <ul class="list-group">
+    <ul class="list-group {{ solved }}">
       <li class="list-group-item problem-list" ng-repeat="problem in book.problems">
+        <button class="solvedMark"></button>
         <a href="#/board/{{problem.id}}">
-          <div class="stipulation">{{ problem.fen | whoseTurn }} to play and {{problem.stipulation | translateStipulation }}</div>
+          <div class="stipulation">#{{ problem.id }}: {{ problem.fen | whoseTurn }} to play and {{problem.stipulation | translateStipulation }}</div>
           <div class="author">{{ problem.author }}</div>
         </a>
       </li>

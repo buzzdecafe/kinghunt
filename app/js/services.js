@@ -116,6 +116,11 @@ angular.module('kinghunt.services', []).
     return gameObj;
   }).
   factory("bookSvc", function() {
+
+      // TODO: initialize book
+
+      // TODO: initialize solved
+
       return {
 
         getFenById: function(id) {
@@ -146,6 +151,20 @@ angular.module('kinghunt.services', []).
               return (problems[i - 1]) ? problems[i - 1] : null;
             }
           }
+        },
+
+        solved: {
+          "2118": true,
+          "2119": true,
+          "2125": true
+        },
+
+        markSolved: function(id) {
+          this.solved[id] = true;
+        },
+
+        markUnsolved: function(id) {
+          delete this.solved[id];
         },
 
         setBook: function(newBook) {
