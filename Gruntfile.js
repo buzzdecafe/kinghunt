@@ -42,14 +42,21 @@ module.exports = function(grunt) {
           {src: ['app/**', 'VERSION', 'manifest.webapp']}, // includes files in path and its subdirs
         ]
       }
-    }
+    },
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
+  grunt.registerTask('version', 'Write a VERSION file to include in the archive', function() {
+    var now = new Date();
+    var pkg = grunt.config('pkg');
+    var contents = 'version ' + pkg.version + '\nBuilt: ' + now + '\n';
+    grunt.file.write('VERSION', contents);
+  });
   grunt.registerTask('test', ['jshint', 'jasmine']);
-  grunt.registerTask('build', ['compress:main']);
+  grunt.registerTask('build', ['version', 'compress:main']);
 };
       
