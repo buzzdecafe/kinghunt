@@ -2,7 +2,7 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('kinghunt', ['kinghunt.filters', 'kinghunt.services', 'kinghunt.directives', 'kinghunt.controllers']).
+angular.module('kinghunt', ['ui.bootstrap', 'kinghunt.filters', 'kinghunt.services', 'kinghunt.directives', 'kinghunt.controllers']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/load', {
         templateUrl: 'partials/load.html',

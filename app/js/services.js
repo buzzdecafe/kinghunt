@@ -62,6 +62,10 @@ angular.module('kinghunt.services', []).
           return status;
         },
 
+        isPromotable: function(piece, rank) {
+          return piece === 'P' && (rank === "1" || rank === "8");
+        },
+
         getBoardConfig: function(scope) {
           return {
             position: scope.problem.fen,
@@ -74,24 +78,40 @@ angular.module('kinghunt.services', []).
                 return false;
               }
             },
-            onDrop: function(source, target) {
-              // see if the move is legal
-              var move = game.move({
+            onDrop: function(source, target, pce) {
+              var piece = pce.substr(1);
+              var rank = target.substr(1);
+              var moveCfg = {
                 from: source,
-                to: target,
-                promotion: 'q' // TODO: handle all promotions
-              });
+                to: target
+              };
 
-              // illegal move
-              if (move === null) {
-                return 'snapback';
+              function makeMove() {
+                var move = game.move(moveCfg);
+
+                // illegal move
+                if (move === null) {
+                  return 'snapback';
+                }
+
+                scope.setStatus(gameObj.getStatus(scope.goalMoves));
+                scope.$apply();
+                //if (scope.mode === 'auto') {
+                //  opponentMove();
+                //}
               }
 
-              scope.setStatus(gameObj.getStatus(scope.goalMoves));
-              scope.$apply();
-  //            if (scope.mode === 'auto') {
-  //              opponentMove();
-  //            }
+              function promotePiece(moveConfig, callback) {
+                // show the promotion overlay
+                scope.$broadcast('gameSvc/promote', moveConfig);
+                return callback();
+              }
+
+              if (gameObj.isPromotable(piece, rank)) {
+                return promotePiece(moveCfg, makeMove);
+              } else {
+                return makeMove();
+              }
             },
             onSnapbackEnd: function() {
               scope.board.position(game.fen());

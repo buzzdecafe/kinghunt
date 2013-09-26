@@ -19,11 +19,6 @@ angular.module('kinghunt.filters', []).
       return color;
     };
   }]).
-  filter('wholeNumbers', [function() {
-    return function(remaining) {
-      return remaining >> 0;
-    };
-  }]).
   filter('toProblemClass', function() {
     return function(isSolved) {
       return isSolved ? "glyphicon-check solved" : "glyphicon-unchecked unsolved";

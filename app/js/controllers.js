@@ -38,6 +38,16 @@ angular.module('kinghunt.controllers', []).
     $scope.board = new ChessBoard('board', gameSvc.getBoardConfig($scope));
     $scope.setStatus(gameSvc.getStatus($scope.goalMoves));
 
+
+    // handle promotion event
+    $scope.$on('gameSvc/promote', function(cfg) {
+      var piece;
+      // show overlay
+
+      // update cfg object with promotion piece
+      cfg.promotion = piece;
+    });
+
     // handle boardNav events
     $scope.$on('boardNav/prevProblem', function() {
       var prev = bookSvc.getPrev($scope.currentId);
