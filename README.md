@@ -19,10 +19,10 @@ For FirefoxOS to start. [Installation page for FirefoxOS](http://buzzdecafe.gith
 * ~~grunt task to build the firefoxos webapp~~
 * mark problems solved and persist somewhere (localStorage? indexedDB?)
 * limit book length for performance reasons
-* grunt task to add VERSION file in archive
-* redesign load page with title & logo
+* ~~grunt task to add VERSION file in archive~~
+* ~~redesign load page with title & logo~~
 * show spinner or something while problems load up
-* enable pawn-promotion choice
+* enable pawn-promotion choice (proving trickier than anticipated)
 
 ## Version
 
