@@ -22,7 +22,6 @@ describe('service', function() {
       expect(bookSvc.getNext instanceof Function).toBe(true);
       expect(bookSvc.getPrev instanceof Function).toBe(true);
       expect(bookSvc.markSolved instanceof Function).toBe(true);
-      expect(bookSvc.markUnsolved instanceof Function).toBe(true);
       expect(bookSvc.book instanceof Object).toBe(true);
 
       describe('book object', function() {
@@ -54,24 +53,21 @@ describe('service', function() {
         describe('isSolved', function() {
           it("reports the T|F status of a problem", function() {
             expect(bookSvc.isSolved("test")).toBeFalsy(); // should be undef
-            bookSvc.markSolved("test");
+            bookSvc.markSolved("test", true);
             expect(bookSvc.isSolved("test")).toBe(true);
           });
         });
 
         describe('markSolved', function() {
-          it("adds the id to the solved object", function() {
-            bookSvc.markSolved("test");
+          it("'true' value adds the id to the solved object", function() {
+            bookSvc.markSolved("test", true);
             expect(bookSvc.isSolved("test")).toBe(true);
           });
-        });
-
-        describe('markUnsolved', function() {
-          it("removes the entry from the solved db", function() {
+          it("'false' value removes the entry from the solved db", function() {
             expect(bookSvc.isSolved("test")).toBeFalsy(); // should be undef
-            bookSvc.markSolved("test");
+            bookSvc.markSolved("test", true);
             expect(bookSvc.isSolved("test")).toBe(true);
-            bookSvc.markUnsolved("test");
+            bookSvc.markSolved("test", false);
             expect(bookSvc.isSolved("test")).toBeFalsy();
           });
         });

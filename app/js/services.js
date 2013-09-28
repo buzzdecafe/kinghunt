@@ -12,7 +12,7 @@ angular.module('kinghunt.services', []).
     {name: 'chessboardjs', url: 'https://github.com/oakmac/chessboardjs'},
     {name: 'Yet Another Chess Problem Database', url: 'http://www.yacpdb.org/'}
   ]).
-  factory('gameSvc', function() {
+  factory('gameSvc', [function() {
     var gameObj = (function() {
       var game;
 
@@ -62,8 +62,30 @@ angular.module('kinghunt.services', []).
           return status;
         },
 
-        isPromotable: function(piece, rank) {
+        isPromotable: function(pce, source, target) {
+          var rank;
+          var color = pce.substr(0, 1);
+          var piece = pce.substr(1);
+          var rank = target.substr(1);
+
           return piece === 'P' && (rank === "1" || rank === "8");
+        },
+
+        promote: function(scope, moveCfg) {
+          var promise = scope.overlay.open();
+          promise.then(function(piece) {
+            var move;
+            moveCfg.promotion = piece;
+            move = game.move(moveCfg);
+            // illegal move
+            if (move === null) {
+              //game.undo();
+              return 'snapback';
+            }
+
+            scope.board.position(gameObj.fenToObject(game.fen()).position);
+            scope.setStatus(gameObj.getStatus(scope.goalMoves));
+          });
         },
 
         getBoardConfig: function(scope) {
@@ -78,17 +100,19 @@ angular.module('kinghunt.services', []).
                 return false;
               }
             },
-            onDrop: function(source, target, pce) {
-              var piece = pce.substr(1);
-              var rank = target.substr(1);
+            onDrop: function(source, target, piece) {
               var moveCfg = {
                 from: source,
                 to: target
               };
 
-              function makeMove() {
-                var move = game.move(moveCfg);
+              var move;
 
+              if (gameObj.isPromotable(piece, source, target)) {
+                gameObj.promote(scope, moveCfg);
+              } else {
+                // TODO: DRY this up
+                move = game.move(moveCfg);
                 // illegal move
                 if (move === null) {
                   return 'snapback';
@@ -96,23 +120,9 @@ angular.module('kinghunt.services', []).
 
                 scope.setStatus(gameObj.getStatus(scope.goalMoves));
                 scope.$apply();
-                //if (scope.mode === 'auto') {
-                //  opponentMove();
-                //}
-              }
-
-              function promotePiece(moveConfig, callback) {
-                // show the promotion overlay
-                scope.$broadcast('gameSvc/promote', moveConfig);
-                return callback();
-              }
-
-              if (gameObj.isPromotable(piece, rank)) {
-                return promotePiece(moveCfg, makeMove);
-              } else {
-                return makeMove();
               }
             },
+
             onSnapbackEnd: function() {
               scope.board.position(game.fen());
             }
@@ -134,7 +144,7 @@ angular.module('kinghunt.services', []).
     }());
 
     return gameObj;
-  }).
+  }]).
   factory("bookSvc", function() {
 
       // TODO: initialize book
@@ -189,13 +199,9 @@ angular.module('kinghunt.services', []).
         },
 
         // TODO: unstub
-        markSolved: function(id) {
-          this.solved[id] = true;
-        },
-
-        // TODO: unstub
-        markUnsolved: function(id) {
-          delete this.solved[id];
+        markSolved: function(id, value) {
+          if (value) { this.solved[id] = value; }
+          else { delete this.solved[id]; }
         },
 
         book: {

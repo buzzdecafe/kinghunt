@@ -2,7 +2,6 @@
 
 /* Directives */
 
-
 angular.module('kinghunt.directives', []).
   directive('appVersion', ['version', function(version) {
     return function(scope, elm, attrs) {
@@ -45,14 +44,32 @@ angular.module('kinghunt.directives', []).
         element.on('click', function(e) {
           var id = scope.problem.id;
           var icon = element.find("span.glyphicon");
-          if (icon.is(".solved")) {
-            bookSvc.markUnsolved(id);
-          } else {
-            bookSvc.markSolved(id);
-          }
+          bookSvc.markSolved(id, icon.is(".solved"));
           scope.$apply();
         });
-        // toggle checkmark
+      }
+    };
+  }]).
+  directive('overlay', ['$q', function($q) {
+    return {
+      restrict: 'C',
+      replace: false,
+      templateUrl: 'partials/promotion.html',
+      link: function(scope, element, attrs, controller) {
+        console.log("overlay link");
+        console.log(scope);
+        scope.overlay = {
+          open: function() {
+            this.deferred = $q.defer();
+            element.show();
+            return this.deferred.promise;
+          },
+          close: function(value) {
+            this.deferred.resolve(value);
+            delete this.deferred;
+            element.hide();
+          }
+        };
       }
     };
   }]).

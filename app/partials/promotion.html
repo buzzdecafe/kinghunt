@@ -1,0 +1,13 @@
+<div class="overlay-backdrop"></div>
+<div class="overlay-content">
+  <div class="modal-header">
+    <h3>Promote to:</h3>
+  </div>
+  <div class="modal-body">
+    <div class="pieces" ng-hide="">
+      <button class="btn btn-default" ng-repeat="piece in pieces" ng-click="overlay.close(piece)">
+        <span class="">{{ piece }}</span>
+      </button>
+    </div>
+  </div>
+</div>
