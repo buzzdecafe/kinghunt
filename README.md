@@ -7,22 +7,28 @@ For FirefoxOS to start. [Installation page for FirefoxOS](http://buzzdecafe.gith
 
 ## To do
 
+### Interface &c.
 * Interface for loading other books or individual problems
 * validate FEN (use chess.js validate_fen method, duh)
+* limit book length for performance reasons
+* show spinner or something while problems load up
+* ~~redesign load page with title & logo~~
 * ~~add undo button on board~~
 * ~~add next problem/previous problem buttons on board~~
-* ~~detect when problem successfully solved or when failed~~
 * ~~add reload button to board~~
+* ~~enable pawn-promotion choice (proving trickier than anticipated)~~
+
+### AI and storage
 * enable switching between manual mode and AI mode (defer to later version)
 * develop better AI! (defer to later version)
-* integrate grunt-jasmine-angular
-* ~~grunt task to build the firefoxos webapp~~
 * mark problems solved and persist somewhere (localStorage? indexedDB?)
-* limit book length for performance reasons
+* ~~detect when problem successfully solved or when failed~~
+
+### build stuff
+* integrate grunt-jshint-karma-jasmine into build process
+* create dev and prod build paths (minify for production)
+* ~~grunt task to build the firefoxos webapp~~
 * ~~grunt task to add VERSION file in archive~~
-* ~~redesign load page with title & logo~~
-* show spinner or something while problems load up
-* ~~enable pawn-promotion choice (proving trickier than anticipated)~~
 
 ## Version
 
