@@ -4,9 +4,12 @@
     <h3>Promote to:</h3>
   </div>
   <div class="modal-body">
-    <div class="pieces" ng-hide="">
-      <button class="btn btn-default" ng-repeat="piece in pieces" ng-click="overlay.close(piece)">
-        <span class="">{{ piece }}</span>
+    <div class="promotion-pieces">
+      <!-- black pieces -->
+      <button class="btn btn-default promote-btn b-{{ piece }} b" ng-repeat="piece in pieces" ng-click="overlay.close(piece)">
+      </button>
+      <!-- white pieces -->
+      <button class="btn btn-default promote-btn w-{{ piece }} w" ng-repeat="piece in pieces" ng-click="overlay.close(piece)">
       </button>
     </div>
   </div>

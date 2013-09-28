@@ -75,12 +75,43 @@ h4 {
 }
 .overlay-content {
   position: absolute;
-  top: 25%;
-  left: 25%;
-  width: 100%;
-  height: 100%;
+  top: 20%;
+  left: 5%;
+  width: 90%;
   background-color: white;
   z-index:1002;
   overflow: auto;
 }
-
+.promotion-pieces {
+  text-align: center;
+}
+.promote-btn {
+  height:6em;
+  width: 6em;
+  margin:0 1em;
+  display: none;
+}
+.b-q {
+  background-image: url(../lib/chess/chessboardjs/img/chesspieces/wikipedia/bQ.png);
+}
+.b-r {
+  background-image: url(../lib/chess/chessboardjs/img/chesspieces/wikipedia/bR.png);
+}
+.b-b {
+  background-image: url(../lib/chess/chessboardjs/img/chesspieces/wikipedia/bB.png);
+}
+.b-n {
+  background-image: url(../lib/chess/chessboardjs/img/chesspieces/wikipedia/bN.png);
+}
+.w-q {
+  background-image: url(../lib/chess/chessboardjs/img/chesspieces/wikipedia/wQ.png);
+}
+.w-r {
+  background-image: url(../lib/chess/chessboardjs/img/chesspieces/wikipedia/wR.png);
+}
+.w-b {
+  background-image: url(../lib/chess/chessboardjs/img/chesspieces/wikipedia/wB.png);
+}
+.w-n {
+  background-image: url(../lib/chess/chessboardjs/img/chesspieces/wikipedia/wN.png);
+}

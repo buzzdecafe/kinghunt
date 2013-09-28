@@ -62,24 +62,40 @@ angular.module('kinghunt.services', []).
           return status;
         },
 
-        isPromotable: function(pce, source, target) {
-          var rank;
+        isPromotable: function(source, target, pce, newPos, oldPos, colorMoving) {
           var color = pce.substr(0, 1);
           var piece = pce.substr(1);
-          var rank = target.substr(1);
+          var fromFile = source.charCodeAt(0);
+          var toFile = target.charCodeAt(0);
+          var fromRank = source.substr(1);
+          var toRank = target.substr(1);
 
-          return piece === 'P' && (rank === "1" || rank === "8");
+          var isToLastRank = (color === 'b') ?
+              fromRank === "2" && toRank === "1" :
+              fromRank === "7" && toRank === "8";
+
+          // there must be an opposing piece on the landing square, and it must be one file over
+          function isPawnCapture() {
+            var landingPiece = oldPos[target];
+            var diffFile = Math.abs(fromFile - toFile) === 1;
+            return landingPiece && landingPiece.substr(0, 1) !== color && diffFile;
+          }
+
+          if (piece !== 'P') {
+            return false;
+          }
+          return (fromFile === toFile) ? isToLastRank : isToLastRank && isPawnCapture() ;
         },
 
-        promote: function(scope, moveCfg) {
-          var promise = scope.overlay.open();
+        promote: function(scope, moveCfg, color) {
+          var promise = scope.overlay.open(color);
           promise.then(function(piece) {
             var move;
             moveCfg.promotion = piece;
             move = game.move(moveCfg);
             // illegal move
             if (move === null) {
-              //game.undo();
+              game.undo();
               return 'snapback';
             }
 
@@ -100,7 +116,7 @@ angular.module('kinghunt.services', []).
                 return false;
               }
             },
-            onDrop: function(source, target, piece) {
+            onDrop: function(source, target, piece, newPos, oldPos, colorMoving) {
               var moveCfg = {
                 from: source,
                 to: target
@@ -108,8 +124,8 @@ angular.module('kinghunt.services', []).
 
               var move;
 
-              if (gameObj.isPromotable(piece, source, target)) {
-                gameObj.promote(scope, moveCfg);
+              if (gameObj.isPromotable(source, target, piece, newPos, oldPos, colorMoving)) {
+                gameObj.promote(scope, moveCfg, piece.charAt(0));
               } else {
                 // TODO: DRY this up
                 move = game.move(moveCfg);

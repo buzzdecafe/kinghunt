@@ -40,13 +40,14 @@ angular.module('kinghunt.controllers', []).
         $scope.board = new ChessBoard('board', gameSvc.getBoardConfig($scope));
         $scope.setStatus(gameSvc.getStatus($scope.goalMoves));
 
+        //--------------------------------------------------------------
         // handle boardNav events
         $scope.$on('boardNav/prevProblem', function() {
           var prev = bookSvc.getPrev($scope.currentId);
           if (prev && prev.id) {
             $location.path('/board/' + prev.id);
           } else {
-            $scope.status.situation = "No previous problem!";
+            $scope.status.situation = "No previous problem";
           }
           $scope.$apply();
         });
@@ -56,7 +57,7 @@ angular.module('kinghunt.controllers', []).
           if (next && next.id) {
             $location.path('/board/' + next.id);
           } else {
-            $scope.status.situation = "No next problem!";
+            $scope.status.situation = "No next problem";
           }
           $scope.$apply();
         });

@@ -15,8 +15,7 @@ angular.module('kinghunt.filters', []).
   }]).
   filter('whoseTurn', ['gameSvc', function(gameSvc) {
     return function(fen) {
-      var color = gameSvc.fenToObject(fen).turn === 'w' ? 'White' : 'Black';
-      return color;
+      return gameSvc.fenToObject(fen).turn === 'w' ? 'White' : 'Black';
     };
   }]).
   filter('toProblemClass', function() {
