@@ -2,7 +2,7 @@
   "author": "Buzz de Cafe <m_hur@yahoo.com> (buzzdecafe.com)",
   "name": "KingHunt",
   "description": "Chess problem app for FirefoxOS.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "https://www.github.com/buzzdecafe/kinghunt",
   "license": "MIT",
   "repository": {

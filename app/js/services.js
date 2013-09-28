@@ -6,7 +6,7 @@
 // Demonstrate how to register services
 // In this case it is a simple value service.
 angular.module('kinghunt.services', []).
-  value('version', '0.0.1').
+  value('version', '0.1.0').
   value('credits', [
     {name: 'chess.js', url: 'https://github.com/jhlywa/chess.js'},
     {name: 'chessboardjs', url: 'https://github.com/oakmac/chessboardjs'},

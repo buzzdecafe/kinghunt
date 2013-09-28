@@ -22,10 +22,10 @@ For FirefoxOS to start. [Installation page for FirefoxOS](http://buzzdecafe.gith
 * ~~grunt task to add VERSION file in archive~~
 * ~~redesign load page with title & logo~~
 * show spinner or something while problems load up
-* enable pawn-promotion choice (proving trickier than anticipated)
+* ~~enable pawn-promotion choice (proving trickier than anticipated)~~
 
 ## Version
 
-0.0.1
+0.1.0
 
 
