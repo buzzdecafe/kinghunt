@@ -81,10 +81,7 @@ angular.module('kinghunt.services', []).
             return landingPiece && landingPiece.substr(0, 1) !== color && diffFile;
           }
 
-          if (piece !== 'P') {
-            return false;
-          }
-          return (fromFile === toFile) ? isToLastRank : isToLastRank && isPawnCapture() ;
+          return piece === 'P' && isToLastRank && ((fromFile === toFile) || isPawnCapture());
         },
 
         promote: function(scope, moveCfg, color) {
@@ -167,6 +164,8 @@ angular.module('kinghunt.services', []).
 
       // TODO: initialize solved
 
+      var skipSolved = false;
+
       return {
 
         getFenById: function(id) {
@@ -197,6 +196,18 @@ angular.module('kinghunt.services', []).
               return (problems[i - 1]) ? problems[i - 1] : null;
             }
           }
+        },
+
+        setSkipSolved: function(value) {
+          skipSolved = value;
+        },
+
+        getSkipSolved: function() {
+          return skipSolved;
+        },
+
+        toggleSkipSolved: function() {
+          skipSolved = !skipSolved;
         },
 
         setBook: function(newBook) {

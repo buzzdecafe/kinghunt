@@ -75,7 +75,7 @@ h4 {
 }
 .overlay-content {
   position: absolute;
-  top: 20%;
+  top: 17%;
   left: 5%;
   width: 90%;
   background-color: white;
@@ -88,7 +88,7 @@ h4 {
 .promote-btn {
   height:6em;
   width: 6em;
-  margin:0 1em;
+  margin:1em;
   display: none;
 }
 .b-q {
