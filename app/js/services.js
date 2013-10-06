@@ -180,42 +180,59 @@ angular.module('kinghunt.services', []).
         return readyPromise.then(fn);
       },
 
-      filterSolved: function(value, solvedProblems) {
+      filterProblems: function(value, solvedProblems) {
         var solvedIds;
+        var store = db.transaction(["solved"], "readonly").objectStore("solved");
         var dfd = $q.defer();
-        if (value) { // if true, we want to filter out solved problems
-          solvedIds = Object.keys(solvedProblems);
-        } else { // otherwise, return the whole schmear
-          
-        }
+        var request = store.getAll();
+
+        request.onsuccess = function(e) {
+          var problems = e.result || [];
+          var filtered;
+          if (value) { // if true, we want to filter out solved problems
+            solvedIds = Object.keys(solvedProblems);
+            problems = e.result.reduce(function(acc, problem) {
+              return (solvedIds.some(function(sid) { return sid === currentProblem.id; })) ?
+                  acc :
+                  acc.push(problem);
+            }, []);
+          }
+          dfd.resolve(problems);
+        };
+
+        request.onerror = function(e) {
+          dfd.reject();
+          //TODO: do something to handle the error
+        };
+        
+        return dfd.promise;
+      },
+
+      markProblemSolved: function(id, value) {
+        var dfd = $q.defer();
+
+        return dfd.promise;
+      },
+
+      getSolved: function() {
+        var dfd = $q.defer();
+
         return dfd.promise;
       },
 
       getBook: function() {
+        var dfd = $q.defer();
 
-      },
-
-      setBook: function(book) {
-
-      },
-
-      getSolved: function(id) {
-
-      },
-
-      markSolved: function(id, value) {
-
+        return dfd.promise;
       }
+
     };
-
-    // CRUD
-
 
     return storageSvc;
   }]).
-  factory("bookSvc", ['storageSvc', function($window, $q) {
+  factory("bookSvc", ['storageSvc', function(storageSvc) {
 
-    var bookSvc = {};
+    var bookSvc;
     var book = {};
     var solved = {};
     var skipSolved = false;
@@ -271,7 +288,7 @@ angular.module('kinghunt.services', []).
         skipSolved = !skipSolved;
       },
 
-      setBook: function(newBook) {
+      loadBook: function(newBook) {
         book = newBook;
         // $scope.$apply();
       },
@@ -294,6 +311,8 @@ angular.module('kinghunt.services', []).
 
     }; // bookSvc
 
+    bookSvc.loadSolved(storageSvc.getSolved());
+    bookSvc.loadBook(storageSvc.getBook());
     return bookSvc;
   }]);
 
