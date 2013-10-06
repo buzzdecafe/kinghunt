@@ -30,9 +30,9 @@ angular.module('kinghunt.filters', []).
   }).
   filter('translateStipulation', [function() {
     var mateInRx = /^#(\d+)$/;
-    return function(stip) {
-      var okFormat = mateInRx.exec(stip);
-      return (okFormat) ? "mate in " + okFormat[1] || "(unknown)" : stip;
+    return function(stipulation) {
+      var okFormat = mateInRx.exec(stipulation);
+      return (okFormat) ? "mate in " + okFormat[1] || "(unknown)" : stipulation;
     };
   }]);
 

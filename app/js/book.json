@@ -1,5 +1,6 @@
 {
-  "title": "English Chess Problems",
+  "id": "English Chess Problems, Vol. 1",
+  "title": "English Chess Problems, Vol. 1",
   "year": "1876",
   "problems": [
     {"id":"2118", "author": "Bennett, Frederick W.", "stipulation":"#2", "fen":"3N4/7r/N2p4/1p1k1p2/4qP2/1KB3P1/Q5B1/2b5  w - - 0 1"},

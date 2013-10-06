@@ -10,7 +10,7 @@
     <h3>KingHunt</h3>
     <p><em>{{book.title}}</em>, {{book.year}}</p>
     <ul class="list-group {{ solved }}">
-      <li class="list-group-item problem-list" ng-repeat="problem in book.problems">
+      <li class="list-group-item problem-list" ng-repeat="problem in bookSvc.getProblems()">
         <button class="solvedMark"></button>
         <a href="#/board/{{problem.id}}">
           <div class="stipulation">#{{ problem.id }}: {{ problem.fen | whoseTurn }} to play and {{problem.stipulation | translateStipulation }}</div>
