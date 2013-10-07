@@ -191,7 +191,7 @@ angular.module('kinghunt.services', []).
           var filtered;
           if (value) { // if true, we want to filter out solved problems
             solvedIds = Object.keys(solvedProblems);
-            problems = e.result.reduce(function(acc, problem) {
+            problems = problems.reduce(function(acc, problem) {
               return (solvedIds.some(function(sid) { return sid === currentProblem.id; })) ?
                   acc :
                   acc.push(problem);
@@ -204,25 +204,45 @@ angular.module('kinghunt.services', []).
           dfd.reject();
           //TODO: do something to handle the error
         };
-        
+
         return dfd.promise;
       },
 
       markProblemSolved: function(id, value) {
         var dfd = $q.defer();
+        var store = db.transaction(["solved"], "readwrite").objectStore("solved");
+        var record = {};
+        record[id] = true;
+        var request;
 
+        if (value) {
+          request = store.put(record);
+        } else {
+          request = store.remove(record);
+        }
+        request.onsucess = function(e) {
+          dfd.resolve();
+        };
         return dfd.promise;
       },
 
       getSolved: function() {
         var dfd = $q.defer();
-
+        var store = db.transaction(["solved"], "readonly").objectStore("solved");
+        var request = store.getAll();
+        request.onsuccess = function(e) {
+          dfd.resolve(e.result);
+        };
         return dfd.promise;
       },
 
       getBook: function() {
         var dfd = $q.defer();
-
+        var store = db.transaction(["book"], "readonly").objectStore("book");
+        var request = store.getAll();
+        request.onsuccess = function(e) {
+          dfd.resolve(e.result);
+        };
         return dfd.promise;
       }
 
