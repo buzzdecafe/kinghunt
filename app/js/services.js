@@ -158,27 +158,9 @@ angular.module('kinghunt.services', []).
 
     return gameObj;
   }]).
-  factory('storageSvc', ['$window', '$q', function($window, $q) {
-    var request = $window.indexedDB.open("KingHunt");
-    var db;
-    var storageSvc;
-    var readyDfd = $q.defer();
-    var readyPromise = readyDfd.promise;
+  factory('storageSvc', ['db', 'book', 'solved', function(db, book, solved) {
 
-    // initialization
-    request.onerror = function(event) {
-      readyDfd.reject();
-    };
-    request.onsuccess = function(event) {
-      db = request.result;
-      readyDfd.resolve();
-    };
-    request.onupgradeneeded = function(evt) {};
-
-    storageSvc = {
-      ready: function(fn) {
-        return readyPromise.then(fn);
-      },
+    return {
 
       filterProblems: function(value, solvedProblems) {
         var solvedIds;
@@ -223,27 +205,18 @@ angular.module('kinghunt.services', []).
         request.onsucess = function(e) {
           dfd.resolve();
         };
+        request.onerror = function(e) {
+          dfd.reject();
+        }
         return dfd.promise;
       },
 
       getSolved: function() {
-        var dfd = $q.defer();
-        var store = db.transaction(["solved"], "readonly").objectStore("solved");
-        var request = store.getAll();
-        request.onsuccess = function(e) {
-          dfd.resolve(e.result);
-        };
-        return dfd.promise;
+        return solved;
       },
 
       getBook: function() {
-        var dfd = $q.defer();
-        var store = db.transaction(["book"], "readonly").objectStore("book");
-        var request = store.getAll();
-        request.onsuccess = function(e) {
-          dfd.resolve(e.result);
-        };
-        return dfd.promise;
+        return book;
       }
 
     };
