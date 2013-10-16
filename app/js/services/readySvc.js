@@ -1,29 +1,27 @@
 angular.module('kinghunt.services').
     factory('readySvc', ['$window', '$q', function($window, $q) {
 
-      var request = $window.indexedDB.open("KingHunt");
+      var request = $window.indexedDB.open("KingHunt", 1);
       var db;
       var book;
       var solved;
       var dbDfd = $q.defer();
       var bookDfd = $q.defer();
       var solvedDfd = $q.defer();
-      var readyPromise = $q.all([bookDfd.promise, solvedDfd.promise]).then(
-          function() { return true; },
-          function() { return false; }
-      );
 
       // initialization
       request.onerror = function(event) {
         dbDfd.reject();
       };
       request.onsuccess = function(event) {
-        db = request.result;
+        db = event.target.result;
         dbDfd.resolve();
       };
       // run this the first time through, to setup stores
-      request.onupgradeneeded = function(evt) {
-        // TODO: implement me
+      request.onupgradeneeded = function(event) {
+        var idb = event.target.result;
+        idb.createObjectStore("book", {keyPath: "id"});
+        idb.createObjectStore("solved", {keyPath: "bookId"});
       };
 
       dbDfd.promise.then(function(e) {
