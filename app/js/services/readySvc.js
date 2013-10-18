@@ -1,5 +1,5 @@
 angular.module('kinghunt.services').
-    factory('readySvc', ['$window', '$q', function($window, $q) {
+    factory('readySvc', ['$window', '$q', 'defaultBook', 'defaultSolved', function($window, $q, defaultBook, defaultSolved) {
 
       var request = $window.indexedDB.open("KingHunt", 1);
       var db;
@@ -20,8 +20,10 @@ angular.module('kinghunt.services').
       // run this the first time through, to setup stores
       request.onupgradeneeded = function(event) {
         var idb = event.target.result;
-        idb.createObjectStore("book", {keyPath: "id"});
-        idb.createObjectStore("solved", {keyPath: "bookId"});
+        var bookStore = idb.createObjectStore("book", {keyPath: "id"});
+        var solvedStore = idb.createObjectStore("solved", {keyPath: "bookId"});
+        bookStore.put(defaultBook);
+        solvedStore.put(defaultSolved);
       };
 
       dbDfd.promise.then(function(e) {
