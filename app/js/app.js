@@ -8,14 +8,18 @@ angular.module('kinghunt', ['kinghunt.filters', 'kinghunt.services', 'kinghunt.d
     $routeProvider.when('/load', {
       templateUrl: 'partials/load.html',
       resolve: {
-        dbReady: function(readySvc) { return readySvc.promise; }
+        ready: function(readySvc) {
+          return readySvc.solved;
+        }
       },
       controller: 'LoadCtrl'
     });
     $routeProvider.when('/board/:id', {
       templateUrl: 'partials/board.html',
       resolve: {
-        dbReady: function(readySvc) { return readySvc.promise; }
+        ready: function(readySvc) {
+          return readySvc.solved;
+        }
       },
       controller: 'BoardCtrl'
     });

@@ -12,6 +12,8 @@ angular.module('kinghunt.services').
       // initialization
       request.onerror = function(event) {
         dbDfd.reject();
+        bookDfd.reject();
+        solvedDfd.reject();
       };
       request.onsuccess = function(event) {
         db = event.target.result;
@@ -28,36 +30,38 @@ angular.module('kinghunt.services').
 
       dbDfd.promise.then(function(e) {
 
+        var id = "English Chess Problems, Vol. 1";
         // open store, initialize if necessary, fetch contents, resolve promise with contents
         var bookStore = db.transaction(["book"], "readonly").objectStore("book");
-        var bookRequest = bookStore.getAll();
-
-        var solvedStore = db.transaction(["solved"], "readonly").objectStore("solved");
-        // FIXME: get just the solved ones for this store please:
-        var solvedRequest = solvedStore.getAll();
+        var bookRequest = bookStore.get(id);
 
         bookRequest.onsuccess = function(e) {
-          book = e.result;
+          var solvedStore = db.transaction(["solved"], "readonly").objectStore("solved");
+          var solvedRequest = solvedStore.get(id);
+
+          solvedRequest.onsuccess = function(e) {
+            solved = e.target.result;
+            solvedDfd.resolve(solved);
+          };
+          solvedRequest.onerror = function(e) {
+            solvedDfd.reject();
+          };
+
+          book = e.target.result;
           bookDfd.resolve(book);
         };
         bookRequest.onerror = function(e) {
           // TODO: if there is no book defined, load default book and return it
           bookDfd.reject();
-        };
-
-        solvedRequest.onsuccess = function(e) {
-          solved = e.result;
-          solvedDfd.resolve(solved);
-        };
-        solvedRequest.onerror = function(e) {
           solvedDfd.reject();
         };
+
       });
 
       return {
-        promise: $q.all([dbDfd.promise, bookDfd.promise, solvedDfd.promise]),
-        db: db,
-        book: book,
-        solved: solved
+        db: dbDfd.promise,
+        book: bookDfd.promise,
+        solved: solvedDfd.promise
       };
+
     }]);

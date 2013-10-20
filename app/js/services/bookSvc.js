@@ -1,11 +1,17 @@
 'use strict';
 
 angular.module('kinghunt.services').
-  factory("bookSvc", ['storageSvc', function($window, $q) {
+  factory("bookSvc", ['ready', function(ready) {
 
     var bookSvc = {};
-    var book = {};
-    var solved = {};
+    var book;
+    ready.bookPromise.then(function(bk) {
+      bookSvc.loadBook(bk);
+    });
+    var solved;
+    ready.solvedPromise.then(function(slvd) {
+      bookSvc.loadSolved(slvd);
+    });
     var skipSolved = false;
 
     bookSvc =  {
@@ -59,7 +65,7 @@ angular.module('kinghunt.services').
         skipSolved = !skipSolved;
       },
 
-      setBook: function(newBook) {
+      loadBook: function(newBook) {
         book = newBook;
         // $scope.$apply();
       },
