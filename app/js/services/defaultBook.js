@@ -265,4 +265,4 @@ angular.module('kinghunt.services').
         {"id":"62986", "author": "Pavitt, W. S.", "stipulation":"#4", "fen":"8/1K2n3/3kP3/3p3B/4Q3/3PN3/8/8  w - - 0 1"}
       ]
     }).
-  value("defaultSolved", {"bookId": "English Chess Problems, Vol. 1"});
+  value("defaultSolved", {"English Chess Problems, Vol. 1": {}});

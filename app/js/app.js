@@ -7,20 +7,10 @@ angular.module('kinghunt', ['kinghunt.filters', 'kinghunt.services', 'kinghunt.d
 
     $routeProvider.when('/load', {
       templateUrl: 'partials/load.html',
-      resolve: {
-        ready: function(readySvc) {
-          return readySvc.solved;
-        }
-      },
       controller: 'LoadCtrl'
     });
     $routeProvider.when('/board/:id', {
       templateUrl: 'partials/board.html',
-      resolve: {
-        ready: function(readySvc) {
-          return readySvc.solved;
-        }
-      },
       controller: 'BoardCtrl'
     });
     $routeProvider.when('/about', {

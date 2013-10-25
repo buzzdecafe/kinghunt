@@ -1,21 +1,32 @@
 'use strict';
 
 angular.module('kinghunt.services').
-  factory("bookSvc", ['ready', function(ready) {
+  factory("bookSvc", ['$window', 'defaultBook', function($window, defaultBook) {
 
-    var bookSvc = {};
-    var book;
-    ready.bookPromise.then(function(bk) {
-      bookSvc.loadBook(bk);
-    });
+      var put = function(key, val) {
+        $window.localStorage.setItem(key, JSON.stringify(val));
+      };
+      var fetch = function(key) {
+        return JSON.stringify($window.localStorage.getItem(key));
+      };
+    var book = fetch("book");
     var solved;
-    ready.solvedPromise.then(function(slvd) {
-      bookSvc.loadSolved(slvd);
-    });
-    var skipSolved = false;
 
-    bookSvc =  {
 
+
+      if (!book) {
+        book = defaultBook;
+        put("book", book);
+      }
+      solved = fetch(book.id);
+      if (!solved) {
+        solved = {};
+        put(book.id, solved);
+      }
+
+    var skipSolved = fetch("skipSolved") || false;
+
+    return  {
       getFenById: function(id) {
         var problems = book.problems;
         var i, flen;
@@ -50,30 +61,22 @@ angular.module('kinghunt.services').
         }
       },
 
-      setSkipSolved: function(value, $scope) {
-        skipSolved = value;
-        storageSvc.filterSolved(value, solved).then(function() {
-          $scope.$apply();
-        });
-      },
-
       getSkipSolved: function() {
         return skipSolved;
       },
 
       toggleSkipSolved: function() {
         skipSolved = !skipSolved;
+        put("skipSolved", skipSolved);
       },
 
       loadBook: function(newBook) {
         book = newBook;
-        // $scope.$apply();
       },
 
       // TODO: unstub; move to indexedDB
       loadSolved: function(s) {
         solved = s;
-        // $scope.$apply();
       },
 
       isSolved: function(id) {
@@ -88,6 +91,5 @@ angular.module('kinghunt.services').
 
     }; // bookSvc
 
-    return bookSvc;
   }]);
 
