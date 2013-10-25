@@ -16,10 +16,7 @@ angular.module('kinghunt.directives', []).
       templateUrl: 'partials/boardNav.html',
       link: function(scope, element, attrs) {
         var buttons = element.find('.board-button');
-        var prevProblem = element.find('#prevProblem');
-        var nextProblem = element.find('#nextProblem');
-        var undo = element.find('#undo');
-        var reload = element.find('#reload');
+        // ids we're listening for: prevProblem, nextProblem, undo, reload
         buttons.on('click', function(e) {
           $rootScope.$broadcast('boardNav/' + e.target.id);
         });
