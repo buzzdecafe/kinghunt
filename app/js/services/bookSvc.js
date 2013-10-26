@@ -3,28 +3,26 @@
 angular.module('kinghunt.services').
   factory("bookSvc", ['$window', 'defaultBook', function($window, defaultBook) {
 
-      var put = function(key, val) {
-        $window.localStorage.setItem(key, JSON.stringify(val));
-      };
-      var fetch = function(key) {
-        return JSON.stringify($window.localStorage.getItem(key));
-      };
+    var put = function(key, val) {
+      $window.localStorage.setItem(key, JSON.stringify(val));
+    };
+    var fetch = function(key) {
+      var value = $window.localStorage.getItem(key);
+      return value ? JSON.parse(value) : value;
+    };
     var book = fetch("book");
+    var skipSolved = fetch("skipSolved") || false;
     var solved;
 
-
-
-      if (!book) {
-        book = defaultBook;
-        put("book", book);
-      }
-      solved = fetch(book.id);
-      if (!solved) {
-        solved = {};
-        put(book.id, solved);
-      }
-
-    var skipSolved = fetch("skipSolved") || false;
+    if (!book) {
+      book = defaultBook;
+      put("book", book);
+    }
+    solved = fetch(book.id);
+    if (!solved) {
+      solved = {};
+      put(book.id, solved);
+    }
 
     return  {
       getFenById: function(id) {
@@ -35,6 +33,10 @@ angular.module('kinghunt.services').
             return problems[i];
           }
         }
+      },
+
+      getBook: function() {
+        return book;
       },
 
       getProblems: function() {
@@ -59,6 +61,10 @@ angular.module('kinghunt.services').
             return (problems[i - 1]) ? problems[i - 1] : null;
           }
         }
+      },
+
+      getSolved: function() {
+        return solved;
       },
 
       getSkipSolved: function() {

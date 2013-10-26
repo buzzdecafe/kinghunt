@@ -10,8 +10,8 @@ angular.module('kinghunt.controllers', []).
     });
   }]).
   controller('LoadCtrl', ['$scope', 'bookSvc', function($scope, bookSvc) {
-    $scope.book = bookSvc.book;
-    $scope.solved = bookSvc.solved;
+    $scope.book = bookSvc.getBook();
+    $scope.solved = bookSvc.getSolved();
   }]).
   controller('BoardCtrl', ['$scope', '$route', '$location', 'bookSvc', 'gameSvc', '$routeParams',
       function($scope, $route, $location, bookSvc, gameSvc, $routeParams) {
