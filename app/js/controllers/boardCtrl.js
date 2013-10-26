@@ -2,18 +2,8 @@
 
 /* Controllers */
 
-angular.module('kinghunt.controllers', []).
-  controller('NavCtrl', ['$scope', '$location', function($scope, $location) {
-    $scope.show = $location.path().match(/board/);
-    $scope.$on('$locationChangeStart', function(e) {
-      $scope.show = $location.path().match(/board/);
-    });
-  }]).
-  controller('LoadCtrl', ['$scope', 'bookSvc', function($scope, bookSvc) {
-    $scope.book = bookSvc.getBook();
-    $scope.solved = bookSvc.getSolved();
-  }]).
-  controller('BoardCtrl', ['$scope', '$route', '$location', 'bookSvc', 'gameSvc', '$routeParams',
+angular.module('kinghunt.controllers').
+    controller('BoardCtrl', ['$scope', '$route', '$location', 'bookSvc', 'gameSvc', '$routeParams',
       function($scope, $route, $location, bookSvc, gameSvc, $routeParams) {
         var game = gameSvc.getGame();
         var board;
@@ -79,10 +69,5 @@ angular.module('kinghunt.controllers', []).
         });
 
       }
-  ]).
-  controller('AboutCtrl', ['$scope', 'version', 'credits',  function($scope, version, credits) {
-    $scope.year = (new Date()).getFullYear();
-    $scope.version = version;
-    $scope.credits = credits;
-  }]);
+    ]);
 

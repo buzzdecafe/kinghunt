@@ -27,3 +27,4 @@ angular.module('kinghunt', ['kinghunt.filters', 'kinghunt.services', 'kinghunt.d
     }
   ]);
 
+

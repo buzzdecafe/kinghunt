@@ -80,19 +80,23 @@ angular.module('kinghunt.services').
         book = newBook;
       },
 
-      // TODO: unstub; move to indexedDB
       loadSolved: function(s) {
         solved = s;
+        put("solved", solved);
       },
 
       isSolved: function(id) {
         return solved[id];
       },
 
-      // TODO: unstub
       markSolved: function(id, value) {
-        if (value) { solved[id] = value; }
-        else { delete solved[id]; }
+        if (value) {
+          solved[id] = value;
+          put("solved", solved);
+        }
+        else {
+          delete solved[id];
+        }
       }
 
     }; // bookSvc
