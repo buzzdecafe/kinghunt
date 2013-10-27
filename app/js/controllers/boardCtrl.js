@@ -20,7 +20,7 @@ angular.module('kinghunt.controllers').
 
         $scope.pieces = ['q', 'r', 'b', 'n'];
         $scope.currentId = $routeParams.id;
-        $scope.book = bookSvc.book;
+        $scope.book = bookSvc.getBook();
         $scope.problem = bookSvc.getFenById($scope.currentId);
         $scope.goal = $scope.problem.stipulation;
         $scope.goalMoves = +$scope.goal.substr(1); // TODO: handle more cases

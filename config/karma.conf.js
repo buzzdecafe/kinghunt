@@ -2,6 +2,7 @@ module.exports = function(config) {
 
   config.set({
 
+    //logLevel: config.LOG_DEBUG,
     basePath: '../',
     frameworks: ['jasmine'],
     files: [
@@ -22,8 +23,7 @@ module.exports = function(config) {
     junitReporter: {
       outputFile: 'test_out/unit.xml',
       suite: 'unit'
-    },
-    logLevel: config.LOG_DEBUG
+    }
 
   });
 

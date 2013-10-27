@@ -18,14 +18,18 @@ describe('service', function() {
 
     it('should return an object with correct interface', inject(function(bookSvc) {
       expect(bookSvc instanceof Object).toBe(true);
+      expect(bookSvc.getBook instanceof Function).toBe(true);
       expect(bookSvc.getFenById instanceof Function).toBe(true);
       expect(bookSvc.getNext instanceof Function).toBe(true);
       expect(bookSvc.getPrev instanceof Function).toBe(true);
+      expect(bookSvc.getProblems instanceof Function).toBe(true);
+      expect(bookSvc.getSolved instanceof Function).toBe(true);
+      expect(bookSvc.isSolved instanceof Function).toBe(true);
+      expect(bookSvc.loadBook instanceof Function).toBe(true);
       expect(bookSvc.markSolved instanceof Function).toBe(true);
-      expect(bookSvc.book instanceof Object).toBe(true);
 
       describe('book object', function() {
-        var book = bookSvc.book;
+        var book = bookSvc.getBook();
         it('has the following attributes: title, author, year, fen', function() {
           expect(book.title).toBeDefined();
           expect(book.year).toBeDefined();
@@ -34,7 +38,7 @@ describe('service', function() {
       });
 
       describe('fen object', function() {
-        var book = bookSvc.book;
+        var book = bookSvc.getBook();
         it('has attributes: id, stipulation, position', function() {
           var problem = book.problems[0];
           expect(problem.id).toBeDefined();
@@ -47,7 +51,7 @@ describe('service', function() {
       describe("solved interface", function() {
 
         beforeEach(function() {
-          delete bookSvc.solved.test;
+          delete bookSvc.getSolved().test;
         });
 
         describe('isSolved', function() {
@@ -134,6 +138,7 @@ describe('service', function() {
       });
 
       expect(gameSvc.getStatus instanceof Function).toBe(true);
+      
       describe('getStatus', function() {
         it("returns a status object", function() {
           var goalMoves = 2;

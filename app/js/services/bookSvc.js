@@ -18,13 +18,10 @@ angular.module('kinghunt.services').
       book = defaultBook;
       put("book", book);
     }
-    solved = fetch(book.id);
-    if (!solved) {
-      solved = {};
-      put(book.id, solved);
-    }
+    solved = fetch(book.id) || {};
 
     return  {
+
       getFenById: function(id) {
         var problems = book.problems;
         var i, flen;
@@ -77,12 +74,9 @@ angular.module('kinghunt.services').
       },
 
       loadBook: function(newBook) {
+        put("book", newBook);
         book = newBook;
-      },
-
-      loadSolved: function(s) {
-        solved = s;
-        put("solved", solved);
+        solved = fetch(book.id) || {};
       },
 
       isSolved: function(id) {
@@ -92,11 +86,11 @@ angular.module('kinghunt.services').
       markSolved: function(id, value) {
         if (value) {
           solved[id] = value;
-          put("solved", solved);
         }
         else {
           delete solved[id];
         }
+        put(book.id, solved);
       }
 
     }; // bookSvc
