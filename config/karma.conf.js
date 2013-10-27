@@ -10,6 +10,10 @@ module.exports = function(config) {
       'test/lib/angular/angular-mocks.js',
       'app/lib/jquery/*.js',
       'app/lib/chess/**/*.js',
+      'app/js/app.js',
+      'app/js/controllers/controllers.js',
+      'app/js/directives/directives.js',
+      'app/js/services/services.js',
       'app/js/**/*.js',
       'test/unit/**/*.js'
     ],
