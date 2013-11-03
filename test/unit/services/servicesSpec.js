@@ -138,7 +138,7 @@ describe('service', function() {
       });
 
       expect(gameSvc.getStatus instanceof Function).toBe(true);
-      
+
       describe('getStatus', function() {
         it("returns a status object", function() {
           var goalMoves = 2;

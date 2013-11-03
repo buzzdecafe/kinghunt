@@ -26,7 +26,7 @@ angular.module('kinghunt.filters', []).
   filter('solvedMsg', function() {
     return function(skip) {
       return skip ? "Show" : "Hide";
-    }
+    };
   }).
   filter('translateStipulation', [function() {
     var mateInRx = /^#(\d+)$/;

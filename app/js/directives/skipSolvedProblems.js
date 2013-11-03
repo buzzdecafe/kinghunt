@@ -7,6 +7,14 @@ angular.module('kinghunt.directives').
       return {
         restrict: 'C',
         replace: false,
-        template: '<button class="btn btn-default" ng-click="bookSvc.toggleSkipSolved()">{{ bookSvc.getSkipSolved() | solvedMsg }} solved</button>',
+        link: function(scope, element, attrs) {
+          scope.skipSolved = bookSvc.getSkipSolved();
+
+          element.on('click', function(e) {
+            bookSvc.toggleSkipSolved();
+            scope.skipSolved = bookSvc.getSkipSolved();
+            scope.$apply();
+          });
+        }
       }
     }]);
