@@ -10,12 +10,6 @@ angular.module('kinghunt.controllers').
 
         $scope.setStatus = function(status) {
           $scope.status = status;
-          // side effects:
-          if (status.progress === "SOLVED") {
-            bookSvc.markSolved($scope.currentId, true);
-          } else if (status.progress === "FAILED") {
-            bookSvc.markSolved($scope.currentId, false);
-          }
         };
 
         $scope.pieces = ['q', 'r', 'b', 'n'];

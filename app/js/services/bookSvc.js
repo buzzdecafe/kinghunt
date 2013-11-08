@@ -42,22 +42,40 @@ angular.module('kinghunt.services').
 
       getNext: function(id) {
         var problems = book.problems;
-        var i, flen;
+        var i, j, flen;
         for (i = 0, flen = problems.length; i < flen; i++) {
           if (problems[i].id === id) {
-            return (problems[i + 1]) ? problems[i + 1] : null;
+            if (skipSolved) {
+              for (j = i + 1; j < problems.length; j++) {
+                if (!solved[problems[j].id]) {
+                  return problems[j];
+                }
+              }
+            } else {
+              return (problems[i + 1]) ? problems[i + 1] : null;
+            }
           }
         }
+        return null;
       },
 
       getPrev: function(id) {
         var problems = book.problems;
-        var i, flen;
+        var i, j, flen;
         for (i = 0, flen = problems.length; i < flen; i++) {
           if (problems[i].id === id) {
-            return (problems[i - 1]) ? problems[i - 1] : null;
+            if (skipSolved) {
+              for (j = i - 1; j > -1; j--) {
+                if (!solved[problems[j].id]) {
+                  return problems[j];
+                }
+              }
+            } else {
+              return (problems[i - 1]) ? problems[i - 1] : null;
+            }
           }
         }
+        return null;
       },
 
       getSolved: function() {

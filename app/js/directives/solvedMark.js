@@ -7,14 +7,14 @@ angular.module('kinghunt.directives').
       return {
         restrict: 'C',
         replace: true,
-        template: '<button class="pull-right btn btn-default"><span class="glyphicon {{ solved[problem.id] | toProblemClass }}"></span></button>',
+        template: '<button class="pull-right btn btn-default"><span class="glyphicon {{ problemSolved | toProblemClass }}"></span></button>',
         link: function(scope, element, attrs) {
           // update model
+          scope.problemSolved = bookSvc.isSolved(scope.problem.id);
           element.on('click', function(e) {
             var id = scope.problem.id;
-            var icon = element.find("span.glyphicon");
-            var solvedProblem = icon.is(".solved");
-            bookSvc.markSolved(id, !solvedProblem);
+            scope.problemSolved = !element.find("span.glyphicon").is(".solved");
+            bookSvc.markSolved(id, scope.problemSolved);
             scope.$apply();
           });
         }
