@@ -9,7 +9,6 @@ angular.module('kinghunt.directives').
         replace: true,
         template: '<button class="pull-right btn btn-default"><span class="glyphicon {{ problemSolved | toProblemClass }}"></span></button>',
         link: function(scope, element, attrs) {
-          // update model
           scope.problemSolved = bookSvc.isSolved(scope.problem.id);
           element.on('click', function(e) {
             var id = scope.problem.id;
