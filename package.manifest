@@ -1,7 +1,7 @@
 {
    "name": "KingHunt",
    "package_path" : "http://buzzdecafe.github.io/kinghunt/kinghunt.zip",
-   "version": "0.0.1",
+   "version": "0.2.0",
    "developer": {
      "name": "Buzz de Cafe",
      "url": "http://buzzdecafe.com"
